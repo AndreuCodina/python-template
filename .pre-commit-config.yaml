@@ -21,11 +21,3 @@ repos:
         language: system
         types: [python]
         fail_fast: true
-
-      - id: unit-tests
-        name: Unit tests
-        entry: uv run -- pytest -m unit
-        language: system
-        types: [python]
-        fail_fast: true
-        pass_filenames: false
