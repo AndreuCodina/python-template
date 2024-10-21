@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "api",
+      "type": "debugpy",
+      "request": "launch",
+      "program": ".venv/bin/fastapi",
+      "args": [
+        "dev",
+        "api/src/api/main.py"
+      ],
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "preLaunchTask": "pre-commit-install"
+    }
+  ]
+}

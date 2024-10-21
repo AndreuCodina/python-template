@@ -1,0 +1,2 @@
+- [Projects](docs/projects.md)
+- [Pre-commit](docs/pre-commit.md)

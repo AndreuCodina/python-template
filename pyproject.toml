@@ -1,0 +1,44 @@
+[project]
+name = "python-monorepo"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "domain",
+    "fastapi[standard]==0.115.2",
+    "sqlmodel==0.0.22",
+    "test-utils",
+    "transcriber",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "jupyter==1.1.1",
+    "pre-commit==4.0.1",
+    "pyright==1.1.384",
+    "pytest-asyncio==0.24.0",
+    "pytest-cov==5.0.0",
+    "pytest-mock==3.14.0",
+    "pytest==8.3.3",
+    "ruff==0.7.0",
+]
+
+[tool.uv.sources]
+api = { workspace = true }
+domain = { workspace = true }
+transcriber = { workspace = true }
+test-utils = { workspace = true }
+
+[tool.uv.workspace]
+members = ["domain", "api", "test_utils", "transcriber"]
+
+[tool.pyright]
+typeCheckingMode = "strict"
+# extraPaths = ["transcriber/src/"]
+
+[tool.ruff.lint]
+select = ["F", "E", "W", "N", "I", "ANN"]
+ignore = ["E501", "ANN101", "ANN102", "ANN401"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+markers = ["unit: Unit tests", "integration: Integration tests"]
