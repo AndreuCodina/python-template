@@ -2,6 +2,7 @@ from decimal import Decimal
 
 from pydantic import Field
 
+from common.business_error import BusinessError
 from domain.entity import Entity
 
 
@@ -11,3 +12,11 @@ class Product(Entity):
     price: Decimal = Field(gt=Decimal("0.0"))
     is_discontinued: bool
     discontinuation_reason: str | None = None
+
+    def discontinue(self, discontinuation_reason: str | None = None) -> None:
+        if self.is_discontinued:
+            error_message = "The product is already discontinued"
+            raise BusinessError(error_message)
+
+        self.is_discontinued = True
+        self.discontinuation_reason = discontinuation_reason
