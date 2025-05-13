@@ -11,7 +11,7 @@ from pydantic_settings import (
     SettingsConfigDict,
 )
 
-from api.application_environment import ApplicationEnvironment
+from common.application_environment import ApplicationEnvironment
 
 
 class ApplicationSettings(BaseSettings):

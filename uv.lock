@@ -2,15 +2,21 @@ version = 1
 revision = 2
 requires-python = ">=3.12"
 resolution-markers = [
-    "python_full_version < '3.13'",
-    "python_full_version >= '3.13'",
+    "python_full_version < '3.13' and sys_platform != 'darwin' and sys_platform != 'linux'",
+    "python_full_version < '3.13' and sys_platform == 'darwin'",
+    "python_full_version < '3.13' and sys_platform == 'linux'",
+    "python_full_version >= '3.13' and sys_platform != 'darwin' and sys_platform != 'linux'",
+    "python_full_version >= '3.13' and sys_platform == 'darwin'",
+    "python_full_version >= '3.13' and sys_platform == 'linux'",
 ]
 
 [manifest]
 members = [
     "api",
+    "common",
     "domain",
     "python-architecture",
+    "test-utils",
     "transcriber",
 ]
 
@@ -317,6 +323,11 @@ sdist = { url = "https://files.pythonhosted.org/packages/e9/a8/fb783cb0abe2b5fde
 wheels = [
     { url = "https://files.pythonhosted.org/packages/e6/75/49e5bfe642f71f272236b5b2d2691cf915a7283cc0ceda56357b61daa538/comm-0.2.2-py3-none-any.whl", hash = "sha256:e6fb86cb70ff661ee8c9c14e7d36d6de3b4066f1441be4063df9c5009f0a64d3", size = 7180, upload-time = "2024-03-12T16:53:39.226Z" },
 ]
+
+[[package]]
+name = "common"
+version = "0.1.0"
+source = { editable = "common" }
 
 [[package]]
 name = "cryptography"
@@ -829,7 +840,7 @@ dependencies = [
     { name = "overrides" },
     { name = "packaging" },
     { name = "prometheus-client" },
-    { name = "pywinpty", marker = "os_name == 'nt'" },
+    { name = "pywinpty", marker = "os_name == 'nt' and sys_platform != 'darwin' and sys_platform != 'linux'" },
     { name = "pyzmq" },
     { name = "send2trash" },
     { name = "terminado" },
@@ -847,7 +858,7 @@ name = "jupyter-server-terminals"
 version = "0.5.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "pywinpty", marker = "os_name == 'nt'" },
+    { name = "pywinpty", marker = "os_name == 'nt' and sys_platform != 'darwin' and sys_platform != 'linux'" },
     { name = "terminado" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/fc/d5/562469734f476159e99a55426d697cbf8e7eb5efe89fb0e0b4f83a3d3459/jupyter_server_terminals-0.5.3.tar.gz", hash = "sha256:5ae0295167220e9ace0edcfdb212afd2b01ee8d179fe6f23c899590e9b8a5269", size = 31430, upload-time = "2024-03-12T14:37:03.049Z" }
@@ -1382,6 +1393,7 @@ name = "python-architecture"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "common" },
     { name = "domain" },
     { name = "fastapi", extra = ["standard"] },
     { name = "pydantic" },
@@ -1394,11 +1406,13 @@ dev = [
     { name = "jupyter" },
     { name = "pyright", extra = ["nodejs"] },
     { name = "ruff" },
+    { name = "test-utils" },
     { name = "transcriber" },
 ]
 
 [package.metadata]
 requires-dist = [
+    { name = "common", editable = "common" },
     { name = "domain", editable = "domain" },
     { name = "fastapi", extras = ["standard"], specifier = "==0.115.12" },
     { name = "pydantic", specifier = "==2.11.4" },
@@ -1411,6 +1425,7 @@ dev = [
     { name = "jupyter", specifier = "==1.1.1" },
     { name = "pyright", extras = ["nodejs"], specifier = "==1.1.400" },
     { name = "ruff", specifier = "==0.11.9" },
+    { name = "test-utils", editable = "test_utils" },
     { name = "transcriber", editable = "transcriber" },
 ]
 
@@ -1767,13 +1782,18 @@ version = "0.18.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "ptyprocess", marker = "os_name != 'nt'" },
-    { name = "pywinpty", marker = "os_name == 'nt'" },
+    { name = "pywinpty", marker = "os_name == 'nt' and sys_platform != 'darwin' and sys_platform != 'linux'" },
     { name = "tornado" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/8a/11/965c6fd8e5cc254f1fe142d547387da17a8ebfd75a3455f637c663fb38a0/terminado-0.18.1.tar.gz", hash = "sha256:de09f2c4b85de4765f7714688fff57d3e75bad1f909b589fde880460c753fd2e", size = 32701, upload-time = "2024-03-12T14:34:39.026Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/6a/9e/2064975477fdc887e47ad42157e214526dcad8f317a948dee17e1659a62f/terminado-0.18.1-py3-none-any.whl", hash = "sha256:a4468e1b37bb318f8a86514f65814e1afc977cf29b3992a4500d9dd305dcceb0", size = 14154, upload-time = "2024-03-12T14:34:36.569Z" },
 ]
+
+[[package]]
+name = "test-utils"
+version = "0.1.0"
+source = { editable = "test_utils" }
 
 [[package]]
 name = "tinycss2"
