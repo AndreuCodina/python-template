@@ -6,9 +6,6 @@ on:
       environment:
         required: true
         type: string
-      uv_version:
-        required: true
-        type: string
 
 jobs:
   deploy:

@@ -51,5 +51,4 @@ jobs:
     uses: ./.github/workflows/_deploy_api.yaml
     with:
       environment: dev
-      uv_version: ${{ vars.UV_VERSION }}
     secrets: inherit
