@@ -52,3 +52,10 @@ jobs:
     with:
       environment: dev
     secrets: inherit
+
+  deploy-transcriber-dev:
+    needs: continuous-integration
+    uses: ./.github/workflows/_deploy_transcriber.yaml
+    with:
+      environment: dev
+    secrets: inherit
