@@ -71,7 +71,7 @@ jobs:
     needs: [deploy-api-dev, deploy-transcriber-dev]
     uses: ./.github/workflows/_deploy_transcriber.yaml
     with:
-      environment: pro
+      environment: stg
     secrets: inherit
 
   deploy-api-pro:
