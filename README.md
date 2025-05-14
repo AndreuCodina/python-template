@@ -3,30 +3,18 @@
 Python monorepo + uv + Vertical Slice Architecture
 
 # Projects
+`api` and `transcriber`.
 
-## API
+# Execute project
 
-RESTful API.
+```bash
+docker compose --file docker-compose-dev.yaml up --detach
+```
 
 ```bash
 uv run -- fastapi dev api/src/api/main.py
 ```
 
 ```bash
-docker build \
-    --file api/src/api/Dockerfile \
-    --tag python-monorepo:0.1.0 \
-    --platform=linux/amd64 \
-    .
+docker compose --file docker-compose-dev.yaml down --volumes
 ```
-
-```bash
-docker run \
-    --publish 8000:8000 \
-    --env COMMON__ENVIRONMENT=Development \
-    python-monorepo:0.1.0
-```
-
-# Transcriber
-
-Audio transcriber reading from a queue.

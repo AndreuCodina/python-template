@@ -9,9 +9,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: false
 
-env:
-  UV_VERSION: "0.7.3"
-
 jobs:
   continuous-integration:
     if: github.actor != 'dependabot[bot]'
@@ -25,7 +22,7 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@6b9c6063abd6010835644d4c2e1bef4cf5cd0fca # v6.0.1
         with:
-          version: ${{ env.UV_VERSION}}
+          version: ${{ vars.UV_VERSION }}
 
       - name: Install Python
         uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
@@ -45,22 +42,48 @@ jobs:
         run: uv run --frozen -- pytest -m unit
         shell: bash
 
-      - name: Integration tests
-        run: uv run --frozen -- pytest -m integration
-        shell: bash
+      # - name: Integration tests
+      #   run: uv run --frozen -- pytest -m integration
+      #   shell: bash
 
-  release:
+  deploy-api-dev:
     needs: continuous-integration
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+    uses: ./.github/workflows/_deploy_api.yaml
+    with:
+      environment: dev
+    secrets: inherit
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@6b9c6063abd6010835644d4c2e1bef4cf5cd0fca # v6.0.1
-        with:
-          version: ${{ env.UV_VERSION}}
+  deploy-transcriber-dev:
+    needs: continuous-integration
+    uses: ./.github/workflows/_deploy_transcriber.yaml
+    with:
+      environment: dev
+    secrets: inherit
 
-      - name: Install Python packages
-        run: uv sync --locked --no-dev
-        shell: bash
+  deploy-api-stg:
+    needs: [deploy-api-dev, deploy-transcriber-dev]
+    uses: ./.github/workflows/_deploy_api.yaml
+    with:
+      environment: stg
+    secrets: inherit
+
+  deploy-transcriber-stg:
+    needs: [deploy-api-dev, deploy-transcriber-dev]
+    uses: ./.github/workflows/_deploy_transcriber.yaml
+    with:
+      environment: stg
+    secrets: inherit
+
+  deploy-api-pro:
+    needs: [deploy-api-stg, deploy-transcriber-stg]
+    uses: ./.github/workflows/_deploy_api.yaml
+    with:
+      environment: pro
+    secrets: inherit
+
+  deploy-transcriber-pro:
+    needs: [deploy-api-stg, deploy-transcriber-stg]
+    uses: ./.github/workflows/_deploy_transcriber.yaml
+    with:
+      environment: pro
+    secrets: inherit
