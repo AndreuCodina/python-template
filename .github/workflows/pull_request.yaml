@@ -59,3 +59,31 @@ jobs:
     with:
       environment: dev
     secrets: inherit
+
+  deploy-api-stg:
+    needs: continuous-integration
+    uses: ./.github/workflows/_deploy_api.yaml
+    with:
+      environment: stg
+    secrets: inherit
+
+  deploy-transcriber-stg:
+    needs: continuous-integration
+    uses: ./.github/workflows/_deploy_transcriber.yaml
+    with:
+      environment: pro
+    secrets: inherit
+
+  deploy-api-pro:
+    needs: continuous-integration
+    uses: ./.github/workflows/_deploy_api.yaml
+    with:
+      environment: pro
+    secrets: inherit
+
+  deploy-transcriber-pro:
+    needs: continuous-integration
+    uses: ./.github/workflows/_deploy_transcriber.yaml
+    with:
+      environment: pro
+    secrets: inherit
