@@ -25,7 +25,7 @@ dev = [
 ]
 
 [tool.uv.workspace]
-members = ["api", "domain", "transcriber", "test_utils", "common"]
+members = ["api", "domain", "transcriber", "test_utils", "common", "scripts"]
 
 [tool.uv.sources]
 api = { workspace = true }
