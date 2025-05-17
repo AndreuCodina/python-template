@@ -12,7 +12,7 @@ docker compose --file docker-compose-dev.yaml up --detach
 ```
 
 ```bash
-uv run -- fastapi dev api/src/api/main.py
+uv run -- poe start-api-dev
 ```
 
 ```bash

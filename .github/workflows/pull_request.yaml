@@ -33,10 +33,9 @@ jobs:
         run: uv sync --locked
         shell: bash
 
-      - name: Pre-commit
-        uses: pre-commit/action@v3.0.1
-        with:
-          extra_args: --all-files
+      - name: Check code
+        run: uv run --frozen -- poe check-code
+        shell: bash
 
       - name: Unit tests
         run: uv run --frozen -- pytest -m unit
