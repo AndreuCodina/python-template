@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from azure.identity import DefaultAzureCredential
+from pydantic import SecretStr
 from pydantic.alias_generators import to_pascal
 from pydantic_settings import (
     AzureKeyVaultSettingsSource,
@@ -18,6 +19,9 @@ class ApplicationSettings(BaseSettings):
     model_config = SettingsConfigDict(alias_generator=to_pascal, extra="ignore")
 
     logging_level: str
+    cosmos_db_no_sql_url: str
+    cosmos_db_no_sql_key: SecretStr
+    cosmos_db_no_sql_database: str
 
     @classmethod
     def settings_customise_sources(

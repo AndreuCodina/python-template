@@ -13,6 +13,12 @@ class Product(Entity):
     is_discontinued: bool
     discontinuation_reason: str | None = None
 
+    @staticmethod
+    def publish(name: str, price: Decimal, description: str | None = None) -> "Product":
+        return Product(
+            name=name, price=price, description=description, is_discontinued=False
+        )
+
     def discontinue(self, discontinuation_reason: str | None = None) -> None:
         if self.is_discontinued:
             error_message = "The product is already discontinued"
