@@ -20,5 +20,5 @@ COPY --from=builder --chown=nonroot /app /app
 WORKDIR /app
 EXPOSE 8000
 USER nonroot
-CMD [".venv/bin/fastapi", "run", "api/src/api/main.py"]
+CMD [".venv/bin/poe", "start-api-pro"]
 
