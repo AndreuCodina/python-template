@@ -1,6 +1,9 @@
 from azure.cosmos import CosmosClient, PartitionKey
 
 from api.application_settings import ApplicationSettings
+from api.workflows.products.discontinue_product.discontinue_product_workflow import (
+    DiscontinueProductWorkflow,
+)
 from api.workflows.products.publish_product.publish_product_workflow import (
     PublishProductWorkflow,
 )
@@ -44,5 +47,11 @@ class DependencyContainer:
     @classmethod
     def get_publish_product_workflow(cls) -> PublishProductWorkflow:
         return PublishProductWorkflow(
+            application_settings=cls.get_application_settings()
+        )
+
+    @classmethod
+    def get_discontinue_product_workflow(cls) -> DiscontinueProductWorkflow:
+        return DiscontinueProductWorkflow(
             application_settings=cls.get_application_settings()
         )
