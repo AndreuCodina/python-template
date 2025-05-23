@@ -1,5 +1,5 @@
 # 0.7.3-python3.12-bookworm-slim
-FROM ghcr.io/astral-sh/uv@sha256:bccff1a52988d078ce51ca71fa42c02bd321eaef7ed1c4d801dad9ac8552e3a5 AS builder
+FROM ghcr.io/astral-sh/uv@sha256:83285c39ee68ed64708fca1495c2d0aad084e9ac02a8910f5180b8e36bcf803a AS builder
 
 ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy UV_PYTHON_DOWNLOADS=0
 
