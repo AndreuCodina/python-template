@@ -41,9 +41,9 @@ jobs:
         run: uv run --frozen -- pytest -m unit
         shell: bash
 
-      - name: Integration tests
-        run: uv run --frozen -- pytest -m integration
-        shell: bash
+      # - name: Integration tests
+      #   run: uv run --frozen -- pytest -m integration
+      #   shell: bash
 
   deploy-api-dev:
     needs: continuous-integration

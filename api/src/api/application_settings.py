@@ -1,8 +1,10 @@
 from pathlib import Path
 
+from azure.identity import DefaultAzureCredential
 from pydantic import SecretStr
 from pydantic.alias_generators import to_pascal
 from pydantic_settings import (
+    AzureKeyVaultSettingsSource,
     BaseSettings,
     DotEnvSettingsSource,
     EnvSettingsSource,
@@ -47,12 +49,11 @@ class ApplicationSettings(BaseSettings):
         settings = (env, dotenv)
 
         if ApplicationEnvironment.get_current() != ApplicationEnvironment.LOCAL:
-            pass
-        #     azure_key_vault = AzureKeyVaultSettingsSource(  # noqa: ERA001, RUF100
-        #         settings_cls,
-        #         dotenv()["AzureKeyVaultUrl"],# noqa: ERA001, RUF100
-        #         DefaultAzureCredential(),# noqa: ERA001, RUF100
-        #     )# noqa: ERA001, RUF100
-        #     settings += (azure_key_vault,)# noqa: ERA001, RUF100
+            azure_key_vault = AzureKeyVaultSettingsSource(
+                settings_cls,
+                dotenv()["AzureKeyVaultUrl"],
+                DefaultAzureCredential(),
+            )
+            settings += (azure_key_vault,)
 
         return settings
