@@ -1,5 +1,5 @@
-# 0.7.3-python3.12-bookworm-slim
-FROM ghcr.io/astral-sh/uv@sha256:bccff1a52988d078ce51ca71fa42c02bd321eaef7ed1c4d801dad9ac8552e3a5 AS builder
+# 0.7.8-python3.12-bookworm-slim
+FROM ghcr.io/astral-sh/uv@sha256:a37c15d1474625eb986ba6b31623a2caae1da3075290bcbbafe22ff51b21de01 AS builder
 
 ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy UV_PYTHON_DOWNLOADS=0
 
@@ -11,7 +11,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-dev
 
 # 3.12.10-slim-bookworm
-FROM python@sha256:31a416db24bd8ade7dac5fd5999ba6c234d7fa79d4add8781e95f41b187f4c9a AS final
+FROM python@sha256:fd95fa221297a88e1cf49c55ec1828edd7c5a428187e67b5d1805692d11588db AS final
 
 ENV COMMON__ENVIRONMENT=""
 
