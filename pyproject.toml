@@ -28,6 +28,9 @@ dev = [
     "transcriber",
 ]
 
+[tool.uv]
+required-version = ">=0.7.8"
+
 [tool.uv.workspace]
 members = ["api", "domain", "transcriber", "test_utils", "common", "scripts"]
 
