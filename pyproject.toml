@@ -29,7 +29,7 @@ dev = [
 ]
 
 [tool.uv]
-required-version = ">=0.7.8"
+required-version = ">=0.7.14"
 
 [tool.uv.workspace]
 members = ["api", "domain", "transcriber", "test_utils", "common", "scripts"]
