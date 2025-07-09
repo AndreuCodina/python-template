@@ -20,9 +20,9 @@ class DiscontinueProductWorkflow:
                 self.application_settings.cosmos_db_no_sql_database
             )
             product_container = cosmosdb_database.get_container_client(Product.__name__)
-            product = await product_container.read_item(
+            product_dict = await product_container.read_item(
                 item=request.id, partition_key=request.id
             )
-            product = Product.model_validate(product)
+            product = Product.model_validate(product_dict)
             product.discontinue(request.discontinuation_reason)
             await product_container.replace_item(product.id, product.model_dump())

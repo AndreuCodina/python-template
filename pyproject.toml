@@ -18,7 +18,7 @@ dependencies = [
 dev = [
     "api",
     "jupyter==1.1.1",
-    "pyright[nodejs]==1.1.402",
+    "pyright[nodejs]==1.1.403",
     "pytest==8.4.1",
     "pytest-asyncio==1.0.0",
     "pytest-cov==6.2.1",
