@@ -3,12 +3,12 @@ name = "python-architecture"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
-    "aiohttp==3.12.13",
+    "aiohttp==3.12.14",
     "azure-cosmos==4.9.0",
     "common",
     "domain",
-    "fastapi[standard-no-fastapi-cloud-cli]==0.116.0",
-    "opentelemetry-instrumentation-fastapi==0.55b1",
+    "fastapi[standard-no-fastapi-cloud-cli]==0.116.1",
+    "opentelemetry-instrumentation-fastapi==0.56b0",
     "poethepoet==0.36.0",
     "pydantic==2.11.7",
     "pydantic-settings[azure-key-vault]==2.10.1",
@@ -23,7 +23,7 @@ dev = [
     "pytest-asyncio==1.0.0",
     "pytest-cov==6.2.1",
     "pytest-mock==3.14.1",
-    "ruff==0.12.2",
+    "ruff==0.12.3",
     "test-utils",
     "transcriber",
 ]
