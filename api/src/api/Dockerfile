@@ -11,7 +11,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-dev
 
 # 3.12.11-slim-bookworm
-FROM python@sha256:4600f71648e110b005bf7bca92dbb335e549e6b27f2e83fceee5e11b3e1a4d01 AS final
+FROM python@sha256:28f60ab75da2183870846130cead1f6af30162148d3238348f78f89cf6160b5d AS final
 
 ENV COMMON__ENVIRONMENT=""
 
