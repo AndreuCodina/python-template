@@ -46,6 +46,14 @@ jobs:
         run: uv run --frozen -- pytest -m integration
         shell: bash
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          push: false
+
   deploy-api-dev:
     needs: continuous-integration
     uses: ./.github/workflows/_deploy_api.yaml
