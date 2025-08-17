@@ -13,6 +13,8 @@ jobs:
   continuous-integration:
     if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
+    outputs:
+      api-docker-tag: ${{ steps.api-docker-tag.outputs.api-docker-tag }}
     env:
       COMMON__ENVIRONMENT: Development
     steps:
