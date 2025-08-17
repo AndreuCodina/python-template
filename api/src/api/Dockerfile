@@ -8,7 +8,7 @@ COPY pyproject.toml uv.lock ./
 COPY api api
 COPY domain domain
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --frozen --no-dev
+    uv sync --locked --no-dev
 
 # 3.12.11-slim-bookworm
 FROM python@sha256:4600f71648e110b005bf7bca92dbb335e549e6b27f2e83fceee5e11b3e1a4d01 AS final
