@@ -7,7 +7,7 @@ WORKDIR /app
 RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=uv.lock,target=uv.lock \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    uv sync --locked --no-install-project --no-install-workspace --no-dev
+    uv sync --frozen --no-install-workspace --no-dev
 COPY pyproject.toml uv.lock ./
 COPY api api
 COPY domain domain
