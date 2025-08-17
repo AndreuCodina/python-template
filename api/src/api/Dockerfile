@@ -9,8 +9,9 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
     uv sync --frozen --no-install-workspace --no-dev
 COPY pyproject.toml uv.lock ./
-COPY api api
+COPY common common
 COPY domain domain
+COPY api api
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-dev
 
@@ -25,4 +26,3 @@ WORKDIR /app
 EXPOSE 8000
 USER nonroot
 CMD [".venv/bin/poe", "start-api-pro"]
-
