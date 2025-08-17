@@ -49,11 +49,15 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435 # v3.11.1
 
+      - name: Set api docker tag
+        id: api-docker-tag
+        run: echo "api-docker-tag=myregistry/api:${{ github.event.pull_request.head.sha }}" >> $GITHUB_OUTPUT
+
       - name: Build and push api
         uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0c
         with:
           file: api/src/api/Dockerfile
-          tags: myregistry/api:${{ github.event.pull_request.head.sha }}
+          tags: ${{ steps.api-docker-tag.outputs.api-docker-tag }}
           push: false
 
   deploy-api-dev:
@@ -61,6 +65,7 @@ jobs:
     uses: ./.github/workflows/_deploy_api.yaml
     with:
       environment: dev
+      docker_tag: ${{ needs.continuous-integration.outputs.api-docker-tag }}
     secrets: inherit
 
   deploy-transcriber-dev:
@@ -75,6 +80,7 @@ jobs:
     uses: ./.github/workflows/_deploy_api.yaml
     with:
       environment: stg
+      docker_tag: ${{ needs.continuous-integration.outputs.api-docker-tag }}
     secrets: inherit
 
   deploy-transcriber-stg:
@@ -89,6 +95,7 @@ jobs:
     uses: ./.github/workflows/_deploy_api.yaml
     with:
       environment: pro
+      docker_tag: ${{ needs.continuous-integration.outputs.api-docker-tag }}
     secrets: inherit
 
   deploy-transcriber-pro:
