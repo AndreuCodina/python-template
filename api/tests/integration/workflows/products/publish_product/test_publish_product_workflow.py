@@ -11,6 +11,5 @@ class TestPublishProductWorkflow:
     async def test_publish_product(self) -> None:
         request = PublishProductRequestBuilder().build()
 
-        workflow = DependencyContainer.get_publish_product_workflow()
-
-        await workflow.execute(request)
+        async with DependencyContainer.get_publish_product_workflow() as workflow:
+            await workflow.execute(request)

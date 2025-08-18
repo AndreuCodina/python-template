@@ -19,9 +19,11 @@ router = APIRouter(
 
 @router.post("")
 async def publish_product(request: PublishProductRequest) -> PublishProductResponse:
-    return await DependencyContainer.get_publish_product_workflow().execute(request)
+    async with DependencyContainer.get_publish_product_workflow() as workflow:
+        return await workflow.execute(request)
 
 
 @router.post("/discontinue")
 async def discontinue_product(request: DiscontinueProductRequest) -> None:
-    return await DependencyContainer.get_discontinue_product_workflow().execute(request)
+    async with DependencyContainer.get_discontinue_product_workflow() as workflow:
+        return await workflow.execute(request)
