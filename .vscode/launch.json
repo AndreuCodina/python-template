@@ -5,7 +5,7 @@
       "name": "api",
       "type": "debugpy",
       "request": "launch",
-      "program": ".venv/bin/fastapi",
+      "module": "fastapi",
       "args": [
         "dev",
         "api/src/api/main.py"
