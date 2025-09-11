@@ -14,7 +14,7 @@ jobs:
     if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     outputs:
-      api-docker-tag: ${{ steps.api-docker-tag.outputs.api-docker-tag }}
+      python-archetype-docker-tag: ${{ steps.python-archetype-docker-tag.outputs.python-archetype-docker-tag }}
     env:
       COMMON__ENVIRONMENT: Development
     steps:
@@ -51,58 +51,37 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435 # v3.11.1
 
-      - name: Set api docker tag
-        id: api-docker-tag
-        run: echo "api-docker-tag=myregistry/api:${{ github.event.pull_request.head.sha }}" >> $GITHUB_OUTPUT
+      - name: Set docker tag
+        id: python-archetype-docker-tag
+        run: echo "python-archetype-docker-tag=myregistry/python-archetype:${{ github.event.pull_request.head.sha }}" >> $GITHUB_OUTPUT
 
-      - name: Build and push api
+      - name: Build and push
         uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
         with:
-          file: api/src/api/Dockerfile
-          tags: ${{ steps.api-docker-tag.outputs.api-docker-tag }}
+          file: src/python_archetype/api/Dockerfile
+          tags: ${{ steps.python-archetype-docker-tag.outputs.python-archetype-docker-tag }}
           push: false
 
-  deploy-api-dev:
+  deploy-dev:
     needs: continuous-integration
-    uses: ./.github/workflows/_deploy_api.yaml
+    uses: ./.github/workflows/_deploy.yaml
     with:
       environment: dev
-      docker_tag: ${{ needs.continuous-integration.outputs.api-docker-tag }}
+      docker_tag: ${{ needs.continuous-integration.outputs.python-archetype-docker-tag }}
     secrets: inherit
 
-  deploy-transcriber-dev:
-    needs: continuous-integration
-    uses: ./.github/workflows/_deploy_transcriber.yaml
-    with:
-      environment: dev
-    secrets: inherit
-
-  deploy-api-stg:
-    needs: [deploy-api-dev, deploy-transcriber-dev]
-    uses: ./.github/workflows/_deploy_api.yaml
+  deploy-stg:
+    needs: [deploy-dev]
+    uses: ./.github/workflows/_deploy.yaml
     with:
       environment: stg
-      docker_tag: ${{ needs.continuous-integration.outputs.api-docker-tag }}
+      docker_tag: ${{ needs.continuous-integration.outputs.python-archetype-docker-tag }}
     secrets: inherit
 
-  deploy-transcriber-stg:
-    needs: [deploy-api-dev, deploy-transcriber-dev]
-    uses: ./.github/workflows/_deploy_transcriber.yaml
-    with:
-      environment: stg
-    secrets: inherit
-
-  deploy-api-pro:
-    needs: [deploy-api-stg, deploy-transcriber-stg]
-    uses: ./.github/workflows/_deploy_api.yaml
+  deploy-pro:
+    needs: [deploy-stg]
+    uses: ./.github/workflows/_deploy.yaml
     with:
       environment: pro
-      docker_tag: ${{ needs.continuous-integration.outputs.api-docker-tag }}
-    secrets: inherit
-
-  deploy-transcriber-pro:
-    needs: [deploy-api-stg, deploy-transcriber-stg]
-    uses: ./.github/workflows/_deploy_transcriber.yaml
-    with:
-      environment: pro
+      docker_tag: ${{ needs.continuous-integration.outputs.python-archetype-docker-tag }}
     secrets: inherit

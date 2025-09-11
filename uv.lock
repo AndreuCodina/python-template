@@ -6,17 +6,6 @@ resolution-markers = [
     "python_full_version < '3.14'",
 ]
 
-[manifest]
-members = [
-    "api",
-    "common",
-    "domain",
-    "python-architecture",
-    "scripts",
-    "test-utils",
-    "transcriber",
-]
-
 [[package]]
 name = "aiohappyeyeballs"
 version = "2.6.1"
@@ -112,11 +101,6 @@ sdist = { url = "https://files.pythonhosted.org/packages/f1/b4/636b3b65173d3ce9a
 wheels = [
     { url = "https://files.pythonhosted.org/packages/6f/12/e5e0282d673bb9746bacfb6e2dba8719989d3660cdb2ea79aee9a9651afb/anyio-4.10.0-py3-none-any.whl", hash = "sha256:60e474ac86736bbfd6f210f7a61218939c318f43f9972497381f1c5e930ed3d1", size = 107213, upload-time = "2025-08-04T08:54:24.882Z" },
 ]
-
-[[package]]
-name = "api"
-version = "0.1.0"
-source = { editable = "api" }
 
 [[package]]
 name = "appnope"
@@ -454,11 +438,6 @@ wheels = [
 ]
 
 [[package]]
-name = "common"
-version = "0.1.0"
-source = { editable = "common" }
-
-[[package]]
 name = "coverage"
 version = "7.10.6"
 source = { registry = "https://pypi.org/simple" }
@@ -600,11 +579,6 @@ sdist = { url = "https://files.pythonhosted.org/packages/8c/8b/57666417c0f90f08b
 wheels = [
     { url = "https://files.pythonhosted.org/packages/ba/5a/18ad964b0086c6e62e2e7500f7edc89e3faa45033c71c1893d34eed2b2de/dnspython-2.8.0-py3-none-any.whl", hash = "sha256:01d9bbc4a2d76bf0db7c1f729812ded6d912bd318d3b1cf81d30c0f845dbf3af", size = 331094, upload-time = "2025-09-07T18:57:58.071Z" },
 ]
-
-[[package]]
-name = "domain"
-version = "0.1.0"
-source = { editable = "domain" }
 
 [[package]]
 name = "email-validator"
@@ -1960,14 +1934,12 @@ wheels = [
 ]
 
 [[package]]
-name = "python-architecture"
+name = "python-archetype"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "aiohttp" },
     { name = "azure-cosmos" },
-    { name = "common" },
-    { name = "domain" },
     { name = "fastapi", extra = ["standard-no-fastapi-cloud-cli"] },
     { name = "opentelemetry-instrumentation-fastapi" },
     { name = "poethepoet" },
@@ -1977,7 +1949,6 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
-    { name = "api" },
     { name = "jupyter" },
     { name = "pyright", extra = ["nodejs"] },
     { name = "pytest" },
@@ -1985,16 +1956,12 @@ dev = [
     { name = "pytest-cov" },
     { name = "pytest-mock" },
     { name = "ruff" },
-    { name = "test-utils" },
-    { name = "transcriber" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "aiohttp", specifier = "==3.12.15" },
     { name = "azure-cosmos", specifier = "==4.9.0" },
-    { name = "common", editable = "common" },
-    { name = "domain", editable = "domain" },
     { name = "fastapi", extras = ["standard-no-fastapi-cloud-cli"], specifier = "==0.116.1" },
     { name = "opentelemetry-instrumentation-fastapi", specifier = "==0.57b0" },
     { name = "poethepoet", specifier = "==0.37.0" },
@@ -2004,7 +1971,6 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "api", editable = "api" },
     { name = "jupyter", specifier = "==1.1.1" },
     { name = "pyright", extras = ["nodejs"], specifier = "==1.1.405" },
     { name = "pytest", specifier = "==8.4.2" },
@@ -2012,8 +1978,6 @@ dev = [
     { name = "pytest-cov", specifier = "==7.0.0" },
     { name = "pytest-mock", specifier = "==3.15.0" },
     { name = "ruff", specifier = "==0.12.12" },
-    { name = "test-utils", editable = "test_utils" },
-    { name = "transcriber", editable = "transcriber" },
 ]
 
 [[package]]
@@ -2348,11 +2312,6 @@ wheels = [
 ]
 
 [[package]]
-name = "scripts"
-version = "0.1.0"
-source = { virtual = "scripts" }
-
-[[package]]
 name = "send2trash"
 version = "1.8.3"
 source = { registry = "https://pypi.org/simple" }
@@ -2448,11 +2407,6 @@ wheels = [
 ]
 
 [[package]]
-name = "test-utils"
-version = "0.1.0"
-source = { editable = "test_utils" }
-
-[[package]]
 name = "tinycss2"
 version = "1.4.0"
 source = { registry = "https://pypi.org/simple" }
@@ -2491,11 +2445,6 @@ sdist = { url = "https://files.pythonhosted.org/packages/eb/79/72064e6a701c21830
 wheels = [
     { url = "https://files.pythonhosted.org/packages/00/c0/8f5d070730d7836adc9c9b6408dec68c6ced86b304a9b26a14df072a6e8c/traitlets-5.14.3-py3-none-any.whl", hash = "sha256:b74e89e397b1ed28cc831db7aea759ba6640cb3de13090ca145426688ff1ac4f", size = 85359, upload-time = "2024-04-19T11:11:46.763Z" },
 ]
-
-[[package]]
-name = "transcriber"
-version = "0.1.0"
-source = { editable = "transcriber" }
 
 [[package]]
 name = "typer"

@@ -2,9 +2,6 @@
 
 Python monorepo + uv + Vertical Slice Architecture
 
-# Projects
-`api` and `transcriber`.
-
 # Execute project
 
 ```bash
