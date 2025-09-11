@@ -1,0 +1,26 @@
+from collections.abc import AsyncGenerator
+from contextlib import asynccontextmanager
+
+from fastapi import FastAPI
+
+from python_archetype.api.dependency_container import DependencyContainer
+from python_archetype.api.workflows.products import product_router
+from python_archetype.common.application_environment import ApplicationEnvironment
+
+
+@asynccontextmanager
+async def lifespan(_: FastAPI) -> AsyncGenerator[None]:
+    await DependencyContainer.initialize()
+    yield
+
+
+openapi_url = (
+    "/openapi.json"
+    if ApplicationEnvironment.get_current() != ApplicationEnvironment.PRODUCTION
+    else None
+)
+app = FastAPI(
+    openapi_url=openapi_url,
+    lifespan=lifespan,
+)
+app.include_router(product_router.router)

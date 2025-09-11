@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from domain.entities.product import Product
+from python_archetype.domain.entities.product import Product
 
 
 def main() -> None:

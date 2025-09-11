@@ -1,0 +1,20 @@
+name: Deploy
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      docker_tag:
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Print docker tag
+        run: echo "Docker tag:${{ inputs.docker_tag }}"
+        shell: bash

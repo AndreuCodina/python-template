@@ -1,14 +1,11 @@
 [project]
-name = "python-architecture"
+name = "python-archetype"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
     "aiohttp==3.12.15",
     "azure-cosmos==4.9.0",
-    "common",
-    "domain",
     "fastapi[standard-no-fastapi-cloud-cli]==0.116.1",
-    "opentelemetry-instrumentation-fastapi==0.57b0",
     "poethepoet==0.37.0",
     "pydantic==2.11.7",
     "pydantic-settings[azure-key-vault]==2.10.1",
@@ -16,7 +13,6 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "api",
     "jupyter==1.1.1",
     "pyright[nodejs]==1.1.405",
     "pytest==8.4.2",
@@ -24,22 +20,14 @@ dev = [
     "pytest-cov==7.0.0",
     "pytest-mock==3.15.0",
     "ruff==0.12.12",
-    "test-utils",
-    "transcriber",
 ]
 
+[build-system]
+requires = ["uv_build>=0.8.16,<0.9.0"]
+build-backend = "uv_build"
+
 [tool.uv]
-required-version = ">=0.8.11,<0.9.0"
-
-[tool.uv.workspace]
-members = ["api", "domain", "transcriber", "test_utils", "common", "scripts"]
-
-[tool.uv.sources]
-api = { workspace = true }
-domain = { workspace = true }
-transcriber = { workspace = true }
-test-utils = { workspace = true }
-common = { workspace = true }
+required-version = ">=0.8.16,<0.9.0"
 
 [tool.pyright]
 typeCheckingMode = "strict"
@@ -64,12 +52,12 @@ ignore = [
 
 
 [tool.pytest.ini_options]
-addopts = ["--import-mode=importlib"]
+pythonpath = ["src", "tests"]
 asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "function"
 markers = ["unit: Unit tests", "integration: Integration tests"]
 
 [tool.poe.tasks]
 check-code.shell = "ruff check && ruff format --diff && pyright"
-start-api-dev = "fastapi dev api/src/api/main.py"
-start-api-pro.shell = "workers=$(nproc) && fastapi run --workers $workers api/src/api/main.py"
+start-api-dev = "fastapi dev src/python_archetype/api/main.py"
+start-api-pro.shell = "workers=$(nproc) && fastapi run --workers $workers src/python_archetype/api/main.py"

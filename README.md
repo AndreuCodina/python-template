@@ -1,9 +1,6 @@
 # Overview
 
-Python monorepo + uv + Vertical Slice Architecture
-
-# Projects
-`api` and `transcriber`.
+Python archetype + uv + Vertical Slice Architecture
 
 # Execute project
 
