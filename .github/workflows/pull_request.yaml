@@ -71,7 +71,7 @@ jobs:
     secrets: inherit
 
   deploy-stg:
-    needs: [deploy-dev]
+    needs: [continuous-integration, deploy-dev]
     uses: ./.github/workflows/_deploy.yaml
     with:
       environment: stg
@@ -79,7 +79,7 @@ jobs:
     secrets: inherit
 
   deploy-pro:
-    needs: [deploy-stg]
+    needs: [continuous-integration, deploy-stg]
     uses: ./.github/workflows/_deploy.yaml
     with:
       environment: pro
