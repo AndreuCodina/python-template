@@ -6,7 +6,6 @@ dependencies = [
     "aiohttp==3.12.15",
     "azure-cosmos==4.9.0",
     "fastapi[standard-no-fastapi-cloud-cli]==0.116.1",
-    "opentelemetry-instrumentation-fastapi==0.57b0",
     "poethepoet==0.37.0",
     "pydantic==2.11.7",
     "pydantic-settings[azure-key-vault]==2.10.1",

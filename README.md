@@ -1,6 +1,6 @@
 # Overview
 
-Python monorepo + uv + Vertical Slice Architecture
+Python archetype + uv + Vertical Slice Architecture
 
 # Execute project
 
