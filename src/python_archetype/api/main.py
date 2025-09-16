@@ -12,6 +12,7 @@ from python_archetype.common.application_environment import ApplicationEnvironme
 async def lifespan(_: FastAPI) -> AsyncGenerator[None]:
     await DependencyContainer.initialize()
     yield
+    await DependencyContainer.uninitialize()
 
 
 openapi_url = (

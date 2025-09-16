@@ -1,8 +1,5 @@
-from collections.abc import AsyncGenerator
-from contextlib import asynccontextmanager
-
 from azure.cosmos import PartitionKey
-from azure.cosmos.aio import CosmosClient, DatabaseProxy
+from azure.cosmos.aio import CosmosClient
 
 from python_archetype.api.application_settings import ApplicationSettings
 from python_archetype.api.workflows.products.discontinue_product.discontinue_product_workflow import (
@@ -16,74 +13,71 @@ from python_archetype.domain.entities.product import Product
 
 
 class DependencyContainer:
+    _application_settings: ApplicationSettings | None
+    _cosmos_client: CosmosClient | None
+
     @classmethod
     async def initialize(cls) -> None:
-        cls.initialize_application_settings()
-        await cls.initialize_local_environment()
+        cls._application_settings = None
+        cls._cosmos_client = None
+        await cls.initialize_database()
 
     @classmethod
-    def initialize_application_settings(cls) -> None:
-        cls.application_settings = ApplicationSettings()  # type: ignore[reportCallIssue]
+    async def uninitialize(cls) -> None:
+        if cls._cosmos_client is not None:
+            await cls._cosmos_client.close()
 
     @classmethod
-    @asynccontextmanager
-    async def get_cosmosdb_client(
-        cls,
-    ) -> AsyncGenerator[CosmosClient]:
+    def get_application_settings(cls) -> ApplicationSettings:
+        if cls._application_settings is not None:
+            return cls._application_settings
+
+        cls._application_settings = ApplicationSettings()  # type: ignore[reportCallIssue]
+        return cls._application_settings
+
+    @classmethod
+    async def get_cosmos_client(cls) -> CosmosClient:
+        if cls._cosmos_client is not None:
+            return cls._cosmos_client
+
         application_settings = cls.get_application_settings()
-
-        async with CosmosClient(
+        cls._cosmos_client = await CosmosClient(
             application_settings.cosmos_db_no_sql_url,
             application_settings.cosmos_db_no_sql_key.get_secret_value(),
-        ) as cosmosdb_client:
-            yield cosmosdb_client
+        ).__aenter__()
+        return cls._cosmos_client
 
     @classmethod
-    @asynccontextmanager
-    async def get_cosmosdb_database(
-        cls,
-    ) -> AsyncGenerator[DatabaseProxy]:
-        application_settings = cls.get_application_settings()
-
-        async with cls.get_cosmosdb_client() as cosmosdb_client:
-            cosmosdb_database = cosmosdb_client.get_database_client(
-                application_settings.cosmos_db_no_sql_database
-            )
-            yield cosmosdb_database
-
-    @classmethod
-    async def initialize_local_environment(cls) -> None:
+    async def initialize_database(cls) -> None:
         if ApplicationEnvironment.get_current() != ApplicationEnvironment.LOCAL:
             return
 
         application_settings = cls.get_application_settings()
-
-        async with cls.get_cosmosdb_client() as cosmosdb_client:
-            await cosmosdb_client.create_database_if_not_exists(
-                application_settings.cosmos_db_no_sql_database
-            )
-
-        async with cls.get_cosmosdb_database() as cosmosdb_database:
-            await cosmosdb_database.create_container_if_not_exists(
-                id=Product.__name__, partition_key=PartitionKey("/id")
-            )
-
-    @classmethod
-    def get_application_settings(cls) -> ApplicationSettings:
-        return cls.application_settings
+        cosmos_client = await cls.get_cosmos_client()
+        await cosmos_client.create_database_if_not_exists(
+            application_settings.cosmos_db_no_sql_database
+        )
+        cosmos_database = cosmos_client.get_database_client(
+            application_settings.cosmos_db_no_sql_database
+        )
+        await cosmos_database.create_container_if_not_exists(
+            id=Product.__name__, partition_key=PartitionKey("/id")
+        )
 
     @classmethod
-    @asynccontextmanager
     async def get_publish_product_workflow(
         cls,
-    ) -> AsyncGenerator[PublishProductWorkflow]:
-        async with cls.get_cosmosdb_database() as cosmosdb_database:
-            yield PublishProductWorkflow(cosmosdb_database=cosmosdb_database)
+    ) -> PublishProductWorkflow:
+        return PublishProductWorkflow(
+            cosmos_client=await cls.get_cosmos_client(),
+            application_settings=cls.get_application_settings(),
+        )
 
     @classmethod
-    @asynccontextmanager
     async def get_discontinue_product_workflow(
         cls,
-    ) -> AsyncGenerator[DiscontinueProductWorkflow]:
-        async with cls.get_cosmosdb_database() as cosmosdb_database:
-            yield DiscontinueProductWorkflow(cosmosdb_database=cosmosdb_database)
+    ) -> DiscontinueProductWorkflow:
+        return DiscontinueProductWorkflow(
+            cosmos_client=await cls.get_cosmos_client(),
+            application_settings=cls.get_application_settings(),
+        )
