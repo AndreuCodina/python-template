@@ -2,7 +2,9 @@ from decimal import Decimal
 
 from pydantic import Field
 
-from python_archetype.common.business_error import BusinessError
+from python_archetype.common.business_error import (
+    ProductAlreadyDiscontinuedError,
+)
 from python_archetype.domain.entity import Entity
 
 
@@ -21,8 +23,7 @@ class Product(Entity):
 
     def discontinue(self, discontinuation_reason: str | None = None) -> None:
         if self.is_discontinued:
-            error_message = "The product is already discontinued"
-            raise BusinessError(error_message)
+            raise ProductAlreadyDiscontinuedError
 
         self.is_discontinued = True
         self.discontinuation_reason = discontinuation_reason
