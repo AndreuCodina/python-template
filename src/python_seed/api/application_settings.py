@@ -15,6 +15,11 @@ current_path = Path(__file__).parent.resolve()
 
 
 class ApplicationSettings(BaseSettings):
+    logging_level: str
+    cosmos_db_no_sql_url: str
+    cosmos_db_no_sql_key: SecretStr = Field(alias="CosmosDbNoSqlKey")
+    cosmos_db_no_sql_database: str
+
     model_config = SettingsConfigDict(
         extra="ignore",
         env_nested_delimiter="__",
@@ -23,11 +28,6 @@ class ApplicationSettings(BaseSettings):
             str(current_path / f".env.{ApplicationEnvironment.get_current()}"),
         ),
     )
-
-    logging_level: str
-    cosmos_db_no_sql_url: str
-    cosmos_db_no_sql_key: SecretStr = Field(alias="CosmosDbNoSqlKey")
-    cosmos_db_no_sql_database: str
 
     @classmethod
     def settings_customise_sources(
