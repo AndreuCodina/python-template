@@ -43,7 +43,7 @@ class ApplicationSettings(BaseSettings):
         if ApplicationEnvironment.get_current() != ApplicationEnvironment.LOCAL:
             azure_key_vault = AzureKeyVaultSettingsSource(
                 settings_cls,
-                dotenv_settings()["azure_key_vault_url"],
+                dotenv_settings()["key_vault_url"],
                 DefaultAzureCredential(),
             )
             settings = (azure_key_vault, *settings)
