@@ -1,13 +1,13 @@
 from azure.cosmos.aio import CosmosClient
 
-from python_archetype.api.application_settings import ApplicationSettings
-from python_archetype.api.workflows.products.publish_product.publish_product_request import (
+from python_seed.api.application_settings import ApplicationSettings
+from python_seed.api.workflows.products.publish_product.publish_product_request import (
     PublishProductRequest,
 )
-from python_archetype.api.workflows.products.publish_product.publish_product_response import (
+from python_seed.api.workflows.products.publish_product.publish_product_response import (
     PublishProductResponse,
 )
-from python_archetype.domain.entities.product import Product
+from python_seed.domain.entities.product import Product
 
 
 class PublishProductWorkflow:

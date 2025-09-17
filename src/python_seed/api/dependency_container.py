@@ -1,15 +1,15 @@
 from azure.cosmos import PartitionKey
 from azure.cosmos.aio import CosmosClient
 
-from python_archetype.api.application_settings import ApplicationSettings
-from python_archetype.api.workflows.products.discontinue_product.discontinue_product_workflow import (
+from python_seed.api.application_settings import ApplicationSettings
+from python_seed.api.workflows.products.discontinue_product.discontinue_product_workflow import (
     DiscontinueProductWorkflow,
 )
-from python_archetype.api.workflows.products.publish_product.publish_product_workflow import (
+from python_seed.api.workflows.products.publish_product.publish_product_workflow import (
     PublishProductWorkflow,
 )
-from python_archetype.common.application_environment import ApplicationEnvironment
-from python_archetype.domain.entities.product import Product
+from python_seed.common.application_environment import ApplicationEnvironment
+from python_seed.domain.entities.product import Product
 
 
 class DependencyContainer:

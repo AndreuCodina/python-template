@@ -1,14 +1,14 @@
 import pytest
 from test_utils.builders.domain.entities.product_builder import ProductBuilder
 
-from python_archetype.api.dependency_container import DependencyContainer
-from python_archetype.api.workflows.products.discontinue_product.discontinue_product_request import (
+from python_seed.api.dependency_container import DependencyContainer
+from python_seed.api.workflows.products.discontinue_product.discontinue_product_request import (
     DiscontinueProductRequest,
 )
-from python_archetype.api.workflows.products.discontinue_product.discontinue_product_workflow import (
+from python_seed.api.workflows.products.discontinue_product.discontinue_product_workflow import (
     DiscontinueProductWorkflow,
 )
-from python_archetype.domain.entities.product import Product
+from python_seed.domain.entities.product import Product
 
 
 @pytest.fixture

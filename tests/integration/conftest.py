@@ -2,7 +2,7 @@ from collections.abc import AsyncGenerator
 
 import pytest
 
-from python_archetype.api.dependency_container import DependencyContainer
+from python_seed.api.dependency_container import DependencyContainer
 
 
 @pytest.fixture(autouse=True)

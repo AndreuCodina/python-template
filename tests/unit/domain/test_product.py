@@ -1,7 +1,7 @@
 import pytest
 from test_utils.builders.domain.entities.product_builder import ProductBuilder
 
-from python_archetype.common.business_error import (
+from python_seed.common.business_error import (
     ProductAlreadyDiscontinuedError,
 )
 

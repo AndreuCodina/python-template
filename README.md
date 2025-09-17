@@ -1,6 +1,6 @@
 # Overview
 
-Python archetype + uv + Vertical Slice Architecture
+Project template for Python projects + uv + Vertical Slice Architecture
 
 # Execute project
 

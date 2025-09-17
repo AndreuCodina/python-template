@@ -2,10 +2,10 @@ from decimal import Decimal
 
 from pydantic import Field
 
-from python_archetype.common.business_error import (
+from python_seed.common.business_error import (
     ProductAlreadyDiscontinuedError,
 )
-from python_archetype.domain.entity import Entity
+from python_seed.domain.entity import Entity
 
 
 class Product(Entity):

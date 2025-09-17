@@ -1,10 +1,10 @@
 from azure.cosmos.aio import CosmosClient
 
-from python_archetype.api.application_settings import ApplicationSettings
-from python_archetype.api.workflows.products.discontinue_product.discontinue_product_request import (
+from python_seed.api.application_settings import ApplicationSettings
+from python_seed.api.workflows.products.discontinue_product.discontinue_product_request import (
     DiscontinueProductRequest,
 )
-from python_archetype.domain.entities.product import Product
+from python_seed.domain.entities.product import Product
 
 
 class DiscontinueProductWorkflow:

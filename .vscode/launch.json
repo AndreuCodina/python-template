@@ -8,7 +8,7 @@
       "module": "fastapi",
       "args": [
         "dev",
-        "src/python_archetype/api/main.py"
+        "src/python_seed/api/main.py"
       ],
       "console": "integratedTerminal",
       "justMyCode": false,

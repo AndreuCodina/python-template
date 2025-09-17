@@ -1,7 +1,7 @@
 from decimal import Decimal
 from typing import Self
 
-from python_archetype.domain.entities.product import Product
+from python_seed.domain.entities.product import Product
 
 
 class ProductBuilder:
