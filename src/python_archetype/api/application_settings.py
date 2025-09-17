@@ -33,12 +33,12 @@ class ApplicationSettings(BaseSettings):
     def settings_customise_sources(
         cls,
         settings_cls: type[BaseSettings],
-        init_settings: PydanticBaseSettingsSource,  # noqa: ARG003
+        init_settings: PydanticBaseSettingsSource,
         env_settings: PydanticBaseSettingsSource,
         dotenv_settings: PydanticBaseSettingsSource,
-        file_secret_settings: PydanticBaseSettingsSource,  # noqa: ARG003
+        file_secret_settings: PydanticBaseSettingsSource,
     ) -> tuple[PydanticBaseSettingsSource, ...]:
-        settings = (env_settings, dotenv_settings)
+        settings = (init_settings, env_settings, dotenv_settings, file_secret_settings)
 
         if ApplicationEnvironment.get_current() != ApplicationEnvironment.LOCAL:
             azure_key_vault = AzureKeyVaultSettingsSource(
