@@ -9,9 +9,13 @@ class BusinessError(HTTPException):
         detail: str | None = None,
         status_code: int = HTTPStatus.UNPROCESSABLE_ENTITY,
     ) -> None:
-        super().__init__(status_code=status_code, detail=detail)
+        super().__init__(
+            status_code=status_code,
+            detail=detail
+            if detail is not None
+            else self.__class__.__name__.removesuffix("Error"),
+        )
 
 
 class ProductAlreadyDiscontinuedError(BusinessError):
-    def __init__(self) -> None:
-        super().__init__(detail=ProductAlreadyDiscontinuedError.__name__)
+    pass
