@@ -3,9 +3,9 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-from python_seed.api.dependency_container import DependencyContainer
-from python_seed.api.workflows.products import product_router
-from python_seed.common.application_environment import ApplicationEnvironment
+from python_template.api.dependency_container import DependencyContainer
+from python_template.api.workflows.products import product_router
+from python_template.common.application_environment import ApplicationEnvironment
 
 
 @asynccontextmanager

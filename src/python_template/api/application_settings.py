@@ -9,7 +9,7 @@ from pydantic_settings import (
     SettingsConfigDict,
 )
 
-from python_seed.common.application_environment import ApplicationEnvironment
+from python_template.common.application_environment import ApplicationEnvironment
 
 current_path = Path(__file__).parent.resolve()
 

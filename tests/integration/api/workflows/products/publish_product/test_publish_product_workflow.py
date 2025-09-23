@@ -1,7 +1,7 @@
 import pytest
 
-from python_seed.api.dependency_container import DependencyContainer
-from python_seed.api.workflows.products.publish_product.publish_product_workflow import (
+from python_template.api.dependency_container import DependencyContainer
+from python_template.api.workflows.products.publish_product.publish_product_workflow import (
     PublishProductWorkflow,
 )
 from tests.test_utils.builders.api.workflows.products.publish_product.publish_product_request_builder import (

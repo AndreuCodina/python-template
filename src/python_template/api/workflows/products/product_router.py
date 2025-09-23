@@ -1,13 +1,13 @@
 from fastapi import APIRouter
 
-from python_seed.api.dependency_container import DependencyContainer
-from python_seed.api.workflows.products.discontinue_product.discontinue_product_request import (
+from python_template.api.dependency_container import DependencyContainer
+from python_template.api.workflows.products.discontinue_product.discontinue_product_request import (
     DiscontinueProductRequest,
 )
-from python_seed.api.workflows.products.publish_product.publish_product_request import (
+from python_template.api.workflows.products.publish_product.publish_product_request import (
     PublishProductRequest,
 )
-from python_seed.api.workflows.products.publish_product.publish_product_response import (
+from python_template.api.workflows.products.publish_product.publish_product_response import (
     PublishProductResponse,
 )
 

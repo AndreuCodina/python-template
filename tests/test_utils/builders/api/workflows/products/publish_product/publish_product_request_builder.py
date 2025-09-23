@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from python_seed.api.workflows.products.publish_product.publish_product_request import (
+from python_template.api.workflows.products.publish_product.publish_product_request import (
     PublishProductRequest,
 )
 
