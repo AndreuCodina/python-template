@@ -58,5 +58,3 @@ asyncio_default_fixture_loop_scope = "function"
 
 [tool.poe.tasks]
 check-code.shell = "ruff check && ruff format --diff && pyright"
-start-api-dev = "fastapi dev src/template/api/main.py"
-start-api-pro.shell = "workers=$(nproc) && fastapi run --workers $workers src/template/api/main.py"

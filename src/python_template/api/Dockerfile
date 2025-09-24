@@ -23,4 +23,4 @@ COPY --from=builder --chown=app /app /app
 WORKDIR /app
 EXPOSE 8000
 USER app
-CMD [".venv/bin/poe", "start-api-pro"]
+CMD [".venv/bin/fastapi", "run", "src/python_template/api/main.py"]

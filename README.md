@@ -8,9 +8,7 @@ Project template for Python projects + uv + Vertical Slice Architecture
 docker compose --file docker-compose-dev.yaml up --detach
 ```
 
-```bash
-uv run -- poe start-api-dev
-```
+**Visual Studio Code -> Run and Debug -> api** (or `uv run -- fastapi dev src/python_template/api/main.py`)
 
 ```bash
 docker compose --file docker-compose-dev.yaml down --volumes
