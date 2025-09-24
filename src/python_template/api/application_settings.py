@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from azure.identity import DefaultAzureCredential
-from pydantic import Field, SecretStr
+from pydantic import SecretStr
 from pydantic_settings import (
     AzureKeyVaultSettingsSource,
     BaseSettings,
@@ -17,7 +17,7 @@ current_path = Path(__file__).parent.resolve()
 class ApplicationSettings(BaseSettings):
     logging_level: str
     cosmos_db_no_sql_url: str
-    cosmos_db_no_sql_key: SecretStr = Field(alias="CosmosDbNoSqlKey")
+    cosmos_db_no_sql_key: SecretStr
     cosmos_db_no_sql_database: str
 
     model_config = SettingsConfigDict(
@@ -45,6 +45,7 @@ class ApplicationSettings(BaseSettings):
                 settings_cls,
                 dotenv_settings()["key_vault_url"],
                 DefaultAzureCredential(),
+                snake_case_conversion=True,
             )
             settings = (azure_key_vault, *settings)
 
