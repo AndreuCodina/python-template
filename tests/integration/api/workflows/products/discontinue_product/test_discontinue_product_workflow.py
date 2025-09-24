@@ -16,7 +16,6 @@ async def workflow() -> DiscontinueProductWorkflow:
     return await DependencyContainer.get_discontinue_product_workflow()
 
 
-@pytest.mark.integration
 class TestDiscontinueProductWorkflow:
     async def test_discontinue_product(
         self, workflow: DiscontinueProductWorkflow

@@ -6,7 +6,6 @@ from python_template.common.business_error import (
 )
 
 
-@pytest.mark.unit
 class TestProduct:
     def test_discontinue_product(self) -> None:
         product = ProductBuilder().build()

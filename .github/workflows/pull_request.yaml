@@ -40,12 +40,12 @@ jobs:
         shell: bash
 
       - name: Unit tests
-        run: uv run --frozen -- pytest -m unit
+        run: uv run --frozen -- pytest tests/unit
         shell: bash
 
       - name: Integration tests
         if: false
-        run: uv run --frozen -- pytest -m integration
+        run: uv run --frozen -- pytest tests/integration
         shell: bash
 
       - name: Set up Docker Buildx
