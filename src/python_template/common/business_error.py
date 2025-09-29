@@ -17,5 +17,10 @@ class BusinessError(HTTPException):
         )
 
 
+class EntityNotFoundError(BusinessError):
+    def __init__(self) -> None:
+        super().__init__(status_code=HTTPStatus.NOT_FOUND)
+
+
 class ProductAlreadyDiscontinuedError(BusinessError):
     pass

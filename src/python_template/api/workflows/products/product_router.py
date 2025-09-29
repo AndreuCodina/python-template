@@ -26,4 +26,4 @@ async def publish_product(request: PublishProductRequest) -> PublishProductRespo
 @router.post("/discontinue")
 async def discontinue_product(request: DiscontinueProductRequest) -> None:
     workflow = await DependencyContainer.get_discontinue_product_workflow()
-    return await workflow.execute(request)
+    await workflow.execute(request)
