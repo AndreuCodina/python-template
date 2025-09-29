@@ -1,5 +1,5 @@
 from azure.cosmos import PartitionKey
-from azure.cosmos.aio import CosmosClient
+from azure.cosmos.aio import CosmosClient, DatabaseProxy
 
 from python_template.api.application_settings import ApplicationSettings
 from python_template.api.workflows.products.discontinue_product.discontinue_product_workflow import (
@@ -48,6 +48,14 @@ class DependencyContainer:
         return cls._cosmos_client
 
     @classmethod
+    async def get_cosmos_database(cls) -> DatabaseProxy:
+        application_settings = cls.get_application_settings()
+        cosmos_client = await cls.get_cosmos_client()
+        return cosmos_client.get_database_client(
+            application_settings.cosmos_db_no_sql_database
+        )
+
+    @classmethod
     async def initialize_database(cls) -> None:
         if ApplicationEnvironment.get_current() != ApplicationEnvironment.LOCAL:
             return
@@ -69,8 +77,7 @@ class DependencyContainer:
         cls,
     ) -> PublishProductWorkflow:
         return PublishProductWorkflow(
-            cosmos_client=await cls.get_cosmos_client(),
-            application_settings=cls.get_application_settings(),
+            cosmos_database=await cls.get_cosmos_database(),
         )
 
     @classmethod
@@ -78,6 +85,5 @@ class DependencyContainer:
         cls,
     ) -> DiscontinueProductWorkflow:
         return DiscontinueProductWorkflow(
-            cosmos_client=await cls.get_cosmos_client(),
-            application_settings=cls.get_application_settings(),
+            cosmos_database=await cls.get_cosmos_database(),
         )

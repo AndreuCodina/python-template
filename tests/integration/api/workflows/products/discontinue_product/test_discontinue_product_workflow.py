@@ -8,6 +8,7 @@ from python_template.api.workflows.products.discontinue_product.discontinue_prod
 from python_template.api.workflows.products.discontinue_product.discontinue_product_workflow import (
     DiscontinueProductWorkflow,
 )
+from python_template.common.business_error import ProductAlreadyDiscontinuedError
 from python_template.domain.entities.product import Product
 
 
@@ -20,14 +21,22 @@ class TestDiscontinueProductWorkflow:
     async def test_discontinue_product(
         self, workflow: DiscontinueProductWorkflow
     ) -> None:
-        application_settings = DependencyContainer.get_application_settings()
-        cosmos_client = await DependencyContainer.get_cosmos_client()
-        cosmos_database = cosmos_client.get_database_client(
-            application_settings.cosmos_db_no_sql_database
-        )
-        product = ProductBuilder().build()
+        cosmos_database = await DependencyContainer.get_cosmos_database()
         product_container = cosmos_database.get_container_client(Product.__name__)
+        product = ProductBuilder().build()
         await product_container.create_item(product.model_dump())
         request = DiscontinueProductRequest(id=product.id)
 
         await workflow.execute(request)
+
+    async def test_fail_when_discontinuing_discontinued_product(
+        self, workflow: DiscontinueProductWorkflow
+    ) -> None:
+        cosmos_database = await DependencyContainer.get_cosmos_database()
+        product_container = cosmos_database.get_container_client(Product.__name__)
+        product = ProductBuilder().discontinued().build()
+        await product_container.create_item(product.model_dump())
+        request = DiscontinueProductRequest(id=product.id)
+
+        with pytest.raises(ProductAlreadyDiscontinuedError):
+            await workflow.execute(request)
