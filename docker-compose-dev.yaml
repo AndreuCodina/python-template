@@ -1,5 +1,5 @@
 services:
-  cosmosdb-nosql:
+  cosmosdb:
     image: mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator:vnext-preview
     restart: always
     ports:
