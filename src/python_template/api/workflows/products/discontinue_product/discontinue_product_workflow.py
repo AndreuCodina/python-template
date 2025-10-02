@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from logging import Logger
 
 from azure.cosmos.aio import DatabaseProxy
@@ -7,7 +8,7 @@ from python_template.api.workflows.products.discontinue_product.discontinue_prod
     DiscontinueProductRequest,
 )
 from python_template.common.business_error import (
-    EntityNotFoundError,
+    BusinessError,
     ProductAlreadyDiscontinuedError,
 )
 from python_template.domain.entities.product import Product
@@ -40,4 +41,4 @@ class DiscontinueProductWorkflow:
                 )
             )
         except CosmosResourceNotFoundError:
-            raise EntityNotFoundError from None
+            raise BusinessError(status_code=HTTPStatus.NOT_FOUND) from None
