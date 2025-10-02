@@ -1,3 +1,5 @@
+from logging import Logger
+
 from azure.cosmos.aio import DatabaseProxy
 from azure.cosmos.exceptions import CosmosResourceNotFoundError
 
@@ -12,13 +14,18 @@ from python_template.domain.entities.product import Product
 
 
 class DiscontinueProductWorkflow:
-    def __init__(self, cosmos_database: DatabaseProxy) -> None:
+    def __init__(self, cosmos_database: DatabaseProxy, logger: Logger) -> None:
         self.product_container = cosmos_database.get_container_client(Product.__name__)
+        self.logger = logger
 
     async def execute(self, request: DiscontinueProductRequest) -> None:
         product = await self.get_product(request.id)
 
         if product.is_discontinued:
+            self.logger.warning(
+                "Product {product_id} is already discontinued",
+                extra={"product_id": product.id},
+            )
             raise ProductAlreadyDiscontinuedError
 
         product.is_discontinued = True

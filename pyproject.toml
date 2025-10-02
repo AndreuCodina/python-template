@@ -5,6 +5,7 @@ requires-python = ">=3.12"
 dependencies = [
     "aiohttp==3.12.15",
     "azure-cosmos==4.9.0",
+    "azure-monitor-opentelemetry==1.8.1",
     "fastapi[standard-no-fastapi-cloud-cli]==0.118.0",
     "poethepoet==0.37.0",
     "pydantic==2.11.9",

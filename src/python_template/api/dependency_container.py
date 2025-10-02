@@ -1,5 +1,12 @@
+import logging
+from logging import Logger
+
 from azure.cosmos import PartitionKey
 from azure.cosmos.aio import CosmosClient, DatabaseProxy
+from azure.identity import DefaultAzureCredential
+from azure.monitor.opentelemetry import (
+    configure_azure_monitor,  # pyright: ignore[reportUnknownVariableType]
+)
 
 from python_template.api.application_settings import ApplicationSettings
 from python_template.api.workflows.products.discontinue_product.discontinue_product_workflow import (
@@ -13,11 +20,13 @@ from python_template.domain.entities.product import Product
 
 
 class DependencyContainer:
+    _logger: Logger | None
     _application_settings: ApplicationSettings | None
     _cosmos_client: CosmosClient | None
 
     @classmethod
     async def initialize(cls) -> None:
+        cls._logger = None
         cls._application_settings = None
         cls._cosmos_client = None
         await cls.initialize_database()
@@ -26,6 +35,25 @@ class DependencyContainer:
     async def uninitialize(cls) -> None:
         if cls._cosmos_client is not None:
             await cls._cosmos_client.close()
+
+    @classmethod
+    def get_logger(cls) -> Logger:
+        if cls._logger is not None:
+            return cls._logger
+
+        application_settings = cls.get_application_settings()
+        logging.basicConfig(level=application_settings.logging_level)
+        logger = logging.getLogger(__name__)
+        cls._logger = logger
+
+        if ApplicationEnvironment.get_current() != ApplicationEnvironment.LOCAL:
+            configure_azure_monitor(
+                connection_string=application_settings.application_insights_connection_string.get_secret_value(),
+                credential=DefaultAzureCredential(),
+                enable_live_metrics=True,
+            )
+
+        return cls._logger
 
     @classmethod
     def get_application_settings(cls) -> ApplicationSettings:
@@ -76,9 +104,7 @@ class DependencyContainer:
     async def get_publish_product_workflow(
         cls,
     ) -> PublishProductWorkflow:
-        return PublishProductWorkflow(
-            cosmos_database=await cls.get_cosmos_database(),
-        )
+        return PublishProductWorkflow(cosmos_database=await cls.get_cosmos_database())
 
     @classmethod
     async def get_discontinue_product_workflow(
@@ -86,4 +112,5 @@ class DependencyContainer:
     ) -> DiscontinueProductWorkflow:
         return DiscontinueProductWorkflow(
             cosmos_database=await cls.get_cosmos_database(),
+            logger=cls.get_logger(),
         )

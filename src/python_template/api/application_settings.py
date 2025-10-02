@@ -16,6 +16,7 @@ current_path = Path(__file__).parent.resolve()
 
 class ApplicationSettings(BaseSettings):
     logging_level: str
+    application_insights_connection_string: SecretStr
     cosmos_db_no_sql_url: str
     cosmos_db_no_sql_key: SecretStr
     cosmos_db_no_sql_database: str
