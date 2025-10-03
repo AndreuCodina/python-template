@@ -48,7 +48,7 @@ class DependencyContainer:
 
         if ApplicationEnvironment.get_current() != ApplicationEnvironment.LOCAL:
             configure_azure_monitor(
-                connection_string=application_settings.application_insights_connection_string.get_secret_value(),
+                connection_string=application_settings.application_insights_connection_string,
                 credential=DefaultAzureCredential(),
                 enable_live_metrics=True,
             )
