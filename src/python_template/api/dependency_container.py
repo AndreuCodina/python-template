@@ -93,9 +93,7 @@ class DependencyContainer:
         await cosmos_client.create_database_if_not_exists(
             application_settings.cosmos_db_no_sql_database
         )
-        cosmos_database = cosmos_client.get_database_client(
-            application_settings.cosmos_db_no_sql_database
-        )
+        cosmos_database = await cls.get_cosmos_database()
         await cosmos_database.create_container_if_not_exists(
             id=Product.__name__, partition_key=PartitionKey("/id")
         )
