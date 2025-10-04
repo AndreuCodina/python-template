@@ -16,7 +16,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 # 3.12.11-slim-bookworm
 FROM python@sha256:3ad2a947749a3eb74acd9e00636ffa0def5aae0bbbd9fa4fff6253e404e2fe15 AS final
 
-ENV COMMON__ENVIRONMENT=""
+ENV PYTHON_APP_ENVIRONMENT=""
 
 RUN adduser --system --group app
 COPY --from=builder --chown=app /app /app

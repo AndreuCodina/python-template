@@ -1,13 +1,13 @@
 import os
-from enum import StrEnum
+from enum import StrEnum, auto
 
 
 class ApplicationEnvironment(StrEnum):
-    LOCAL = "Local"
-    DEVELOPMENT = "Development"
-    STAGING = "Staging"
-    PRODUCTION = "Production"
+    LOCAL = auto()
+    DEVELOPMENT = auto()
+    STAGING = auto()
+    PRODUCTION = auto()
 
     @staticmethod
     def get_current() -> str:
-        return os.getenv("COMMON__ENVIRONMENT", ApplicationEnvironment.LOCAL)
+        return os.getenv("PYTHON_APP_ENVIRONMENT", ApplicationEnvironment.LOCAL)
