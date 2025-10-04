@@ -1,10 +1,5 @@
-from decimal import Decimal
-
-from python_template.domain.entities.product import Product
-
-
 def main() -> None:
-    Product(name="Sample Product", price=Decimal("19.99"), is_discontinued=False)
+    pass
 
 
 if __name__ == "__main__":
