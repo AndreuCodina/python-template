@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from python_template.api.dependency_container import DependencyContainer
-from python_template.api.workflows.products import product_router
+from python_template.api.workflows.products.product_router import product_router
 from python_template.common.application_environment import ApplicationEnvironment
 
 
@@ -24,4 +24,4 @@ app = FastAPI(
     openapi_url=openapi_url,
     lifespan=lifespan,
 )
-app.include_router(product_router.router)
+app.include_router(product_router)
