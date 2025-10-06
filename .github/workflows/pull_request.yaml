@@ -40,12 +40,12 @@ jobs:
         shell: bash
 
       - name: Unit tests
-        run: uv run --frozen -- pytest tests/unit
+        run: uv run --frozen -- pytest --cov=python_template --cov-branch tests/unit
         shell: bash
 
       - name: Integration tests
         if: false
-        run: uv run --frozen -- pytest tests/integration
+        run: uv run --frozen -- pytest --cov=python_template --cov-branch --cov-append tests/integration
         shell: bash
 
       - name: Set up Docker Buildx
