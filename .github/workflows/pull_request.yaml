@@ -5,13 +5,8 @@ on:
     branches:
       - main
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
-
 jobs:
   continuous-integration:
-    if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     outputs:
       python-template-docker-tag: ${{ steps.python-template-docker-tag.outputs.python-template-docker-tag }}
