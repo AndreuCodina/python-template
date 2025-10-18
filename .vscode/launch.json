@@ -10,7 +10,6 @@
         "dev",
         "src/python_template/api/main.py"
       ],
-      "console": "integratedTerminal",
       "justMyCode": false
     }
   ]
