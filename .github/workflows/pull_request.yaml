@@ -12,7 +12,7 @@ concurrency:
 jobs:
   continuous-integration:
     if: github.actor != 'dependabot[bot]'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       docker-tag: ${{ steps.docker-tag.outputs.docker-tag }}
     env:
@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
       - name: Install uv
-        uses: astral-sh/setup-uv@3259c6206f993105e3a61b142c2d97bf4b9ef83d # v7.1.0
+        uses: astral-sh/setup-uv@2ddd2b9cb38ad8efd50337e8ab201519a34c9f24 # v7.1.1
         with:
           version-file: pyproject.toml
           resolution-strategy: lowest
@@ -64,6 +64,7 @@ jobs:
           push: false
 
   deploy-dev:
+    name: Deploy to development
     needs: continuous-integration
     uses: ./.github/workflows/_deploy.yaml
     with:
@@ -72,6 +73,7 @@ jobs:
     secrets: inherit
 
   deploy-stg:
+    name: Deploy to staging
     needs: [continuous-integration, deploy-dev]
     uses: ./.github/workflows/_deploy.yaml
     with:
@@ -79,10 +81,11 @@ jobs:
       docker_tag: ${{ needs.continuous-integration.outputs.docker-tag }}
     secrets: inherit
 
-  deploy-pro:
+  deploy-prd:
+    name: Deploy to production
     needs: [continuous-integration, deploy-stg]
     uses: ./.github/workflows/_deploy.yaml
     with:
-      environment: pro
+      environment: prd
       docker_tag: ${{ needs.continuous-integration.outputs.docker-tag }}
     secrets: inherit
