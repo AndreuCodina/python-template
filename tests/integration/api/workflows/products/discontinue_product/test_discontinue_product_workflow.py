@@ -12,26 +12,25 @@ from python_template.common.business_error import ProductAlreadyDiscontinuedErro
 from python_template.domain.entities.product import Product
 
 
-@pytest.fixture
-async def workflow() -> DiscontinueProductWorkflow:
-    return await DependencyContainer.get_discontinue_product_workflow()
-
-
 class TestDiscontinueProductWorkflow:
-    async def test_discontinue_product(
-        self, workflow: DiscontinueProductWorkflow
-    ) -> None:
+    @pytest.fixture
+    async def workflow_fixture(self) -> DiscontinueProductWorkflow:
+        return await DependencyContainer.get_discontinue_product_workflow()
+
+    @pytest.fixture(autouse=True)
+    def setup(self, workflow_fixture: DiscontinueProductWorkflow) -> None:
+        self.workflow = workflow_fixture
+
+    async def test_discontinue_product(self) -> None:
         cosmos_database = await DependencyContainer.get_cosmos_database()
         product_container = cosmos_database.get_container_client(Product.__name__)
         product = ProductBuilder().build()
         await product_container.create_item(product.model_dump())
         request = DiscontinueProductRequest(id=product.id)
 
-        await workflow.execute(request)
+        await self.workflow.execute(request)
 
-    async def test_fail_when_discontinuing_discontinued_product(
-        self, workflow: DiscontinueProductWorkflow
-    ) -> None:
+    async def test_fail_when_discontinuing_discontinued_product(self) -> None:
         cosmos_database = await DependencyContainer.get_cosmos_database()
         product_container = cosmos_database.get_container_client(Product.__name__)
         product = ProductBuilder().discontinued().build()
@@ -39,4 +38,4 @@ class TestDiscontinueProductWorkflow:
         request = DiscontinueProductRequest(id=product.id)
 
         with pytest.raises(ProductAlreadyDiscontinuedError):
-            await workflow.execute(request)
+            await self.workflow.execute(request)

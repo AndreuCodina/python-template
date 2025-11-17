@@ -9,13 +9,16 @@ from tests.test_utils.builders.api.workflows.products.publish_product.publish_pr
 )
 
 
-@pytest.fixture
-async def workflow() -> PublishProductWorkflow:
-    return await DependencyContainer.get_publish_product_workflow()
-
-
 class TestPublishProductWorkflow:
-    async def test_publish_product(self, workflow: PublishProductWorkflow) -> None:
+    @pytest.fixture
+    async def workflow_fixture(self) -> PublishProductWorkflow:
+        return await DependencyContainer.get_publish_product_workflow()
+
+    @pytest.fixture(autouse=True)
+    def setup(self, workflow_fixture: PublishProductWorkflow) -> None:
+        self.workflow = workflow_fixture
+
+    async def test_publish_product(self) -> None:
         request = PublishProductRequestBuilder().build()
 
-        await workflow.execute(request)
+        await self.workflow.execute(request)
