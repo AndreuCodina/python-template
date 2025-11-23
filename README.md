@@ -5,13 +5,13 @@ Project template for Python projects + uv + Vertical Slice Architecture
 # Execute project
 
 ```bash
-docker compose --file docker-compose-dev.yaml up --detach
+docker compose --file compose-dev.yaml up --detach
 ```
 
 **Visual Studio Code -> Run and Debug -> api** (or `uv run -- fastapi dev src/python_template/api/main.py`)
 
 ```bash
-docker compose --file docker-compose-dev.yaml down --volumes
+docker compose --file compose-dev.yaml down --volumes
 ```
 
 # Reasonings
