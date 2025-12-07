@@ -16,6 +16,7 @@ jobs:
     outputs:
       docker-tag: ${{ steps.docker-tag.outputs.docker-tag }}
     env:
+      UV_FROZEN: true
       PYTHON_APP_ENVIRONMENT: development
       CI: true # Enable pytest CI mode
     steps:
@@ -34,10 +35,19 @@ jobs:
           python-version-file: .python-version
 
       - name: Install Python packages
-        run: uv sync --locked
+        run: |
+          unset UV_FROZEN
+          uv sync --locked
+        shell: bash
+
+      - name: Install Python packages2
+        run: |
+          uv sync --locked
         shell: bash
 
       - name: Check code
+        env:
+          UV_FROZEN: true
         run: make check-code
         shell: bash
 
