@@ -38,7 +38,7 @@ jobs:
         shell: bash
 
       - name: Check code
-        run: uv run --frozen -- poe check-code
+        run: make check-code
         shell: bash
 
       - name: Unit tests
