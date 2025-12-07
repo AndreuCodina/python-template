@@ -21,16 +21,16 @@ jobs:
       CI: true # Enable pytest CI mode
     steps:
       - name: Checkout repository
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: Install uv
-        uses: astral-sh/setup-uv@2ddd2b9cb38ad8efd50337e8ab201519a34c9f24 # v7.1.1
+        uses: astral-sh/setup-uv@1e862dfacbd1d6d858c55d9b792c756523627244 # v7.1.4
         with:
           version-file: pyproject.toml
           resolution-strategy: lowest
 
       - name: Install Python
-        uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6.0.0
+        uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6.1.0
         with:
           python-version-file: .python-version
 
@@ -40,24 +40,17 @@ jobs:
           uv sync --locked
         shell: bash
 
-      - name: Install Python packages2
-        run: |
-          uv sync --locked
-        shell: bash
-
       - name: Check code
-        env:
-          UV_FROZEN: true
         run: make check-code
         shell: bash
 
       - name: Unit tests
-        run: uv run --frozen -- pytest --cov=python_template --cov-branch tests/unit
+        run: uv run -- pytest --cov=python_template --cov-branch tests/unit
         shell: bash
 
       - name: Integration tests
         if: false
-        run: uv run --frozen -- pytest --cov=python_template --cov-branch --cov-append tests/integration
+        run: uv run -- pytest --cov=python_template --cov-branch --cov-append tests/integration
         shell: bash
 
       - name: Set up Docker Buildx
