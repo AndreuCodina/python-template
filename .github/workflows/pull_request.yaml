@@ -41,11 +41,6 @@ jobs:
         run: uv run --frozen -- poe check-code
         shell: bash
 
-      - name: Check code (ty)
-        if: false
-        run: uv run --frozen -- poe check-code-ty
-        shell: bash
-
       - name: Unit tests
         run: uv run --frozen -- pytest --cov=python_template --cov-branch tests/unit
         shell: bash

@@ -1,5 +1,4 @@
 import pytest
-from test_utils.builders.domain.entities.product_builder import ProductBuilder
 
 from python_template.api.dependency_container import DependencyContainer
 from python_template.api.workflows.products.discontinue_product.discontinue_product_request import (
@@ -10,6 +9,7 @@ from python_template.api.workflows.products.discontinue_product.discontinue_prod
 )
 from python_template.common.business_error import ProductAlreadyDiscontinuedError
 from python_template.domain.entities.product import Product
+from tests.test_utils.builders.domain.entities.product_builder import ProductBuilder
 
 
 class TestDiscontinueProductWorkflow:

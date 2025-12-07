@@ -1,6 +1,6 @@
 services:
   cosmosdb:
-    image: mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator:vnext-EN20251118
+    image: mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator:vnext-EN20251205
     restart: always
     ports:
       - "8081:8081"
