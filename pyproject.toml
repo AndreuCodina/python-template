@@ -4,7 +4,7 @@ version = "0.1.0"
 requires-python = ">=3.14"
 dependencies = [
     "aiohttp>=3.13.2",
-    "azure-cosmos>=4.14.2",
+    "azure-cosmos>=4.14.3",
     "azure-monitor-opentelemetry>=1.8.3",
     "fastapi[standard-no-fastapi-cloud-cli]>=0.124.0",
     "pydantic>=2.12.5",
@@ -27,7 +27,7 @@ requires = ["uv_build"]
 build-backend = "uv_build"
 
 [tool.uv]
-required-version = ">=0.9.4,<0.10.0"
+required-version = ">=0.9.16,<0.10.0"
 
 [tool.ruff.lint]
 select = ["ALL"]
