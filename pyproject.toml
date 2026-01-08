@@ -3,10 +3,11 @@ name = "python-template"
 version = "0.1.0"
 requires-python = ">=3.14"
 dependencies = [
-    "aiohttp>=3.13.2",
+    "aiohttp>=3.13.3",
+    "aspy-dependency-injection>=0.4.1",
     "azure-cosmos>=4.14.3",
     "azure-monitor-opentelemetry>=1.8.3",
-    "fastapi[standard-no-fastapi-cloud-cli]>=0.127.0",
+    "fastapi[standard-no-fastapi-cloud-cli]>=0.128.0",
     "pydantic>=2.12.5",
     "pydantic-settings[azure-key-vault]>=2.12.0",
 ]
@@ -19,7 +20,7 @@ dev = [
     "pytest-cov>=7.0.0",
     "pytest-mock>=3.15.1",
     "ruff>=0.14.10",
-    "ty>=0.0.5",
+    "ty>=0.0.8",
 ]
 
 [build-system]
@@ -28,6 +29,9 @@ build-backend = "uv_build"
 
 [tool.uv]
 required-version = ">=0.9.16,<0.10.0"
+
+[tool.ty.terminal]
+error-on-warning = true
 
 [tool.ruff.lint]
 select = ["ALL"]

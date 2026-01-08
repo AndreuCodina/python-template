@@ -1,6 +1,7 @@
 import pytest
+from aspy_dependency_injection.service_provider import ServiceProvider
+from azure.cosmos.aio import DatabaseProxy
 
-from python_template.api.dependency_container import DependencyContainer
 from python_template.api.workflows.products.discontinue_product.discontinue_product_request import (
     DiscontinueProductRequest,
 )
@@ -13,28 +14,24 @@ from tests.test_utils.builders.domain.entities.product_builder import ProductBui
 
 
 class TestDiscontinueProductWorkflow:
-    @pytest.fixture
-    async def workflow_fixture(self) -> DiscontinueProductWorkflow:
-        return await DependencyContainer.get_discontinue_product_workflow()
-
     @pytest.fixture(autouse=True)
-    def setup(self, workflow_fixture: DiscontinueProductWorkflow) -> None:
-        self.workflow = workflow_fixture
+    async def setup(self, service_provider: ServiceProvider) -> None:
+        self.workflow = await service_provider.get_required_service(
+            DiscontinueProductWorkflow
+        )
+        cosmos_database = await service_provider.get_required_service(DatabaseProxy)
+        self.product_container = cosmos_database.get_container_client(Product.__name__)
 
     async def test_discontinue_product(self) -> None:
-        cosmos_database = await DependencyContainer.get_cosmos_database()
-        product_container = cosmos_database.get_container_client(Product.__name__)
         product = ProductBuilder().build()
-        await product_container.create_item(product.model_dump())
+        await self.product_container.create_item(product.model_dump())
         request = DiscontinueProductRequest(id=product.id)
 
         await self.workflow.execute(request)
 
     async def test_fail_when_discontinuing_discontinued_product(self) -> None:
-        cosmos_database = await DependencyContainer.get_cosmos_database()
-        product_container = cosmos_database.get_container_client(Product.__name__)
         product = ProductBuilder().discontinued().build()
-        await product_container.create_item(product.model_dump())
+        await self.product_container.create_item(product.model_dump())
         request = DiscontinueProductRequest(id=product.id)
 
         with pytest.raises(ProductAlreadyDiscontinuedError):
