@@ -20,5 +20,6 @@ async def service_provider(mocker: MockerFixture) -> AsyncGenerator[ServiceProvi
     services = configure_services()
     email_service_mock = mocker.create_autospec(EmailService, instance=True)
     services.add_transient(EmailService, email_service_mock)
+
     async with services.build_service_provider() as service_provider:
         yield service_provider
