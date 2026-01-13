@@ -1,21 +1,16 @@
 services:
-  cosmosdb:
-    image: mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator:vnext-EN20251205
+  postgresql:
+    image: postgres@sha256:fdd16e63f6c8ab50d422e4896b0d43d45fb72aa08bd33e4f5bda89bc4fbce98d # 18.1
     restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: python_template
     ports:
-      - "8081:8081"
-      - "1234:1234"
-
-  azurite:
-    image: mcr.microsoft.com/azure-storage/azurite@sha256:647c63a91102a9d8e8000aab803436e1fc85fbb285e7ce830a82ee5d6661cf37 # 3.35.0
-    restart: always
-    ports:
-      - "10000:10000"
-      - "10001:10001"
-      - "10002:10002"
-    command: azurite --location /data --blobHost 0.0.0.0 --queueHost 0.0.0.0 --tableHost 0.0.0.0 --disableTelemetry
+      - "5432:5432"
     volumes:
-      - azurite:/data
+      - postgres-sql:/var/lib/postgresql
+      - ./database:/docker-entrypoint-initdb.d:ro
 
 volumes:
-  azurite:
+  postgres-sql:

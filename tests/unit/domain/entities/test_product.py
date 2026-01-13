@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from python_template.domain.entities.product import Product
+from python_template.domain.entities import Product
 
 
 class TestProduct:

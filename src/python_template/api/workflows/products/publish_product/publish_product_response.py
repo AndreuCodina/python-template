@@ -1,5 +1,7 @@
+from uuid import UUID
+
 from pydantic import BaseModel
 
 
 class PublishProductResponse(BaseModel):
-    id: str
+    id: UUID
