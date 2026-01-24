@@ -16,20 +16,30 @@ from python_template.api.workflows.products.publish_product.publish_product_work
 )
 from python_template.common.application_environment import ApplicationEnvironment
 
-openapi_url = (
-    "/openapi.json"
-    if ApplicationEnvironment.get_current() != ApplicationEnvironment.PRODUCTION
-    else None
-)
-app = FastAPI(openapi_url=openapi_url)
-app.include_router(product_router)
 
-services = ServiceCollection()
-application_settings = ApplicationSettings()  # ty:ignore[missing-argument]
-services.add_singleton(ApplicationSettings, application_settings)
-add_observability(services, application_settings)
-add_sqlmodel(services)
-services.add_transient(EmailService)
-services.add_transient(PublishProductWorkflow)
-services.add_transient(DiscontinueProductWorkflow)
+def configure_services() -> ServiceCollection:
+    services = ServiceCollection()
+    application_settings = ApplicationSettings()  # ty:ignore[missing-argument]
+    services.add_singleton(ApplicationSettings, application_settings)
+    add_observability(services, application_settings)
+    add_sqlmodel(services)
+    services.add_transient(EmailService)
+    services.add_transient(PublishProductWorkflow)
+    services.add_transient(DiscontinueProductWorkflow)
+    return services
+
+
+def create_app() -> FastAPI:
+    openapi_url = (
+        "/openapi.json"
+        if ApplicationEnvironment.get_current() != ApplicationEnvironment.PRODUCTION
+        else None
+    )
+    app = FastAPI(openapi_url=openapi_url)
+    app.include_router(product_router)
+    return app
+
+
+app = create_app()
+services = configure_services()
 services.configure_fastapi(app)
