@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from wirio.service_container import ServiceContainer
+from wirio.service_collection import ServiceCollection
 
 from python_template.api.application_settings import ApplicationSettings
 from python_template.api.service_collection_extensions import (
@@ -24,7 +24,7 @@ openapi_url = (
 app = FastAPI(openapi_url=openapi_url)
 app.include_router(product_router)
 
-services = ServiceContainer()
+services = ServiceCollection()
 application_settings = ApplicationSettings()  # ty:ignore[missing-argument]
 services.add_singleton(ApplicationSettings, application_settings)
 add_observability(services, application_settings)

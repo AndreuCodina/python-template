@@ -11,7 +11,7 @@ dependencies = [
     "pydantic>=2.12.5",
     "pydantic-settings[azure-key-vault]>=2.12.0",
     "sqlmodel>=0.0.31",
-    "wirio>=0.7.0",
+    "wirio>=0.8.0",
 ]
 
 [dependency-groups]

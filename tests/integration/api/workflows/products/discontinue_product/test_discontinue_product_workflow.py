@@ -1,6 +1,6 @@
 import pytest
 from sqlalchemy.ext.asyncio import AsyncSession
-from wirio.service_container import ServiceContainer
+from wirio.service_provider import ServiceProvider
 
 from python_template.api.workflows.products.discontinue_product.discontinue_product_request import (
     DiscontinueProductRequest,
@@ -14,9 +14,11 @@ from tests.test_utils.builders.domain.entities.product_builder import ProductBui
 
 class TestDiscontinueProductWorkflow:
     @pytest.fixture(autouse=True)
-    async def setup(self, services_fixture: ServiceContainer) -> None:
-        self.workflow = await services_fixture.get(DiscontinueProductWorkflow)
-        self.sql_session = await services_fixture.get(AsyncSession)
+    async def setup(self, service_provider: ServiceProvider) -> None:
+        self.workflow = await service_provider.get_required_service(
+            DiscontinueProductWorkflow
+        )
+        self.sql_session = await service_provider.get_required_service(AsyncSession)
 
     async def test_discontinue_product(self) -> None:
         product = ProductBuilder().build()

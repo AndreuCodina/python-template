@@ -9,14 +9,14 @@ from sqlalchemy.ext.asyncio import (
     async_sessionmaker,
     create_async_engine,
 )
-from wirio.service_container import ServiceContainer
+from wirio.service_collection import ServiceCollection
 
 from python_template.api.application_settings import ApplicationSettings
 from python_template.common.application_environment import ApplicationEnvironment
 
 
 def add_observability(
-    services: ServiceContainer, application_settings: ApplicationSettings
+    services: ServiceCollection, application_settings: ApplicationSettings
 ) -> None:
     def inject_logging() -> Logger:
         return logging.getLogger(__name__)
@@ -32,7 +32,7 @@ def add_observability(
         )
 
 
-def add_sqlmodel(services: ServiceContainer) -> None:
+def add_sqlmodel(services: ServiceCollection) -> None:
     def inject_async_engine(application_settings: ApplicationSettings) -> AsyncEngine:
         return create_async_engine(application_settings.postgresql_connection_string)
 

@@ -2103,7 +2103,7 @@ requires-dist = [
     { name = "pydantic", specifier = ">=2.12.5" },
     { name = "pydantic-settings", extras = ["azure-key-vault"], specifier = ">=2.12.0" },
     { name = "sqlmodel", specifier = ">=0.0.31" },
-    { name = "wirio", specifier = ">=0.7.0" },
+    { name = "wirio", specifier = ">=0.8.0" },
 ]
 
 [package.metadata.requires-dev]
@@ -2749,14 +2749,14 @@ wheels = [
 
 [[package]]
 name = "wirio"
-version = "0.7.0"
+version = "0.8.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "fastapi", extra = ["standard-no-fastapi-cloud-cli"] },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/eb/24/4af16b3df7ffbd67a549e7c364d21afa5b0bae52cd158263c49a04d5f2b5/wirio-0.7.0.tar.gz", hash = "sha256:98aa048c220fd1daa796a3b2d4a969a21fcac5b412ee6cfb4d7336ba7954845b", size = 27739, upload-time = "2026-01-29T23:57:23.205Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a4/31/1adc0ae4158b3bdb2f461aa1419c2c9f2c6a644586702b9c55d675581624/wirio-0.8.0.tar.gz", hash = "sha256:88e67c569036521ec75cd1d2b98015ec05bd40f681f26f3ecd4b38c7c2bdae76", size = 27372, upload-time = "2026-01-30T17:34:22.731Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b0/4d/0dbda3f0a65332f340000523117a757db7bbfa8a0af8217cce681a0734e7/wirio-0.7.0-py3-none-any.whl", hash = "sha256:6b274597532696484cac5eeb7bf9632267bc392a672db78bcacb2e4317fb454b", size = 46022, upload-time = "2026-01-29T23:57:21.595Z" },
+    { url = "https://files.pythonhosted.org/packages/9c/7c/70d6573c48d37763b1ef467d0152e2b2d17cf138d2ee8a87673650d2aa65/wirio-0.8.0-py3-none-any.whl", hash = "sha256:9166150e2d86218df63439064af3491e35aa3da62aecf43aac6507aa436f14e7", size = 45598, upload-time = "2026-01-30T17:34:23.94Z" },
 ]
 
 [[package]]
