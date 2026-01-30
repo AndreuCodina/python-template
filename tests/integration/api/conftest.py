@@ -1,12 +1,12 @@
 from collections.abc import AsyncGenerator
 
 import pytest
-from aspy_dependency_injection.service_provider import ServiceProvider
+from wirio.service_container import ServiceContainer
 
 from python_template.api.main import services
 
 
 @pytest.fixture
-async def service_provider() -> AsyncGenerator[ServiceProvider]:
-    async with services.build_service_provider() as service_provider:
-        yield service_provider
+async def services_fixture() -> AsyncGenerator[ServiceContainer]:
+    async with services:
+        yield services

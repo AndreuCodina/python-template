@@ -1,7 +1,7 @@
 from typing import Annotated
 
-from aspy_dependency_injection.annotations import Inject
 from fastapi import APIRouter
+from wirio.annotations import FromServices
 
 from python_template.api.workflows.products.discontinue_product.discontinue_product_request import (
     DiscontinueProductRequest,
@@ -28,7 +28,7 @@ product_router = APIRouter(
 @product_router.post("")
 async def publish_product(
     request: PublishProductRequest,
-    workflow: Annotated[PublishProductWorkflow, Inject()],
+    workflow: Annotated[PublishProductWorkflow, FromServices()],
 ) -> PublishProductResponse:
     return await workflow.execute(request)
 
@@ -36,6 +36,6 @@ async def publish_product(
 @product_router.post("/discontinue")
 async def discontinue_product(
     request: DiscontinueProductRequest,
-    workflow: Annotated[DiscontinueProductWorkflow, Inject()],
+    workflow: Annotated[DiscontinueProductWorkflow, FromServices()],
 ) -> None:
     await workflow.execute(request)

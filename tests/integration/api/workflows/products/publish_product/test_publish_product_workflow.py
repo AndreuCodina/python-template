@@ -1,5 +1,5 @@
 import pytest
-from aspy_dependency_injection.service_provider import ServiceProvider
+from wirio.service_container import ServiceContainer
 
 from python_template.api.workflows.products.publish_product.publish_product_workflow import (
     PublishProductWorkflow,
@@ -11,10 +11,8 @@ from tests.test_utils.builders.api.workflows.products.publish_product.publish_pr
 
 class TestPublishProductWorkflow:
     @pytest.fixture(autouse=True)
-    async def setup(self, service_provider: ServiceProvider) -> None:
-        self.workflow = await service_provider.get_required_service(
-            PublishProductWorkflow
-        )
+    async def setup(self, services_fixture: ServiceContainer) -> None:
+        self.workflow = await services_fixture.get(PublishProductWorkflow)
 
     async def test_publish_product(self) -> None:
         request = PublishProductRequestBuilder().build()
