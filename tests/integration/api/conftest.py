@@ -1,12 +1,19 @@
-from collections.abc import AsyncGenerator
+from collections.abc import Generator
 
 import pytest
+from fastapi.testclient import TestClient
+from wirio.integrations.fastapi import get_service_provider
 from wirio.service_provider import ServiceProvider
 
-from python_template.api.main import services
+from python_template.api.main import app
+
+
+@pytest.fixture(autouse=True)
+def test_client() -> Generator[None]:
+    with TestClient(app):
+        yield
 
 
 @pytest.fixture
-async def service_provider() -> AsyncGenerator[ServiceProvider]:
-    async with services.build_service_provider() as service_provider:
-        yield service_provider
+def service_provider() -> ServiceProvider:
+    return get_service_provider(app)

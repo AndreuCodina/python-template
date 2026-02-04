@@ -18,10 +18,11 @@ from python_template.common.application_environment import ApplicationEnvironmen
 def add_observability(
     services: ServiceCollection, application_settings: ApplicationSettings
 ) -> None:
+    logging.basicConfig(level=application_settings.logging_level)
+
     def inject_logging() -> Logger:
         return logging.getLogger(__name__)
 
-    logging.basicConfig(level=application_settings.logging_level)
     services.add_singleton(inject_logging)
 
     if ApplicationEnvironment.get_current() != ApplicationEnvironment.LOCAL:
@@ -36,6 +37,8 @@ def add_sqlmodel(services: ServiceCollection) -> None:
     def inject_async_engine(application_settings: ApplicationSettings) -> AsyncEngine:
         return create_async_engine(application_settings.postgresql_connection_string)
 
+    services.add_singleton(inject_async_engine)
+
     def inject_async_sessionmaker(
         async_engine: AsyncEngine,
     ) -> async_sessionmaker[AsyncSession]:
@@ -43,11 +46,11 @@ def add_sqlmodel(services: ServiceCollection) -> None:
             async_engine, class_=AsyncSession, expire_on_commit=False
         )
 
+    services.add_singleton(inject_async_sessionmaker)
+
     def inject_async_session(
         async_sessionmaker: async_sessionmaker[AsyncSession],
     ) -> AsyncSession:
         return async_sessionmaker()
 
-    services.add_singleton(inject_async_engine)
-    services.add_singleton(inject_async_sessionmaker)
     services.add_transient(inject_async_session)
