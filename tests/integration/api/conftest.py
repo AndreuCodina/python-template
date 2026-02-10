@@ -8,12 +8,7 @@ from wirio.service_provider import ServiceProvider
 from python_template.api.main import app
 
 
-@pytest.fixture(autouse=True)
-def test_client() -> Generator[None]:
-    with TestClient(app):
-        yield
-
-
 @pytest.fixture
-def service_provider() -> ServiceProvider:
-    return get_service_provider(app)
+def service_provider() -> Generator[ServiceProvider]:
+    with TestClient(app):
+        yield get_service_provider(app)
