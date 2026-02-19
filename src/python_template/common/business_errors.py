@@ -11,10 +11,13 @@ class BusinessError(HTTPException):
     ) -> None:
         super().__init__(
             status_code=status_code,
-            detail=detail
-            if detail is not None
-            else self.__class__.__name__.removesuffix("Error"),
+            detail=detail if detail is not None else self.__class__.__name__,
         )
+
+
+class NotFoundError(BusinessError):
+    def __init__(self) -> None:
+        super().__init__(status_code=HTTPStatus.NOT_FOUND)
 
 
 class ProductAlreadyDiscontinuedError(BusinessError):

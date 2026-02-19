@@ -1,5 +1,5 @@
-# 0.9.16-python3.14-bookworm-slim
-FROM astral/uv@sha256:95b472508fed5e3c78db1d6b69022a4fb5c4c443c0478943dc78946ae200990a AS builder
+# 0.10.2-python3.14-trixie
+FROM astral/uv@sha256:a1307beb5bcfc9d4766cf53a20fc1598ccb6da4554419a57060ed6b31a97f265 AS builder
 
 ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy UV_PYTHON_DOWNLOADS=0 UV_NO_DEV=1
 
@@ -13,8 +13,8 @@ COPY src src
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked
 
-# 3.14.2-slim-bookworm
-FROM python@sha256:1f3bc1dcbdc23f54cf2e9a5a8428db4a5f28c53636dec4964c7ae35eb1ebd192 AS final
+# 3.14.3-slim-bookworm
+FROM python@sha256:f0540d0436a220db0a576ccfe75631ab072391e43a24b88972ef9833f699095f AS final
 
 ENV PYTHON_APP_ENVIRONMENT=""
 

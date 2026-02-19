@@ -1,4 +1,3 @@
-from http import HTTPStatus
 from logging import Logger
 
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -8,7 +7,7 @@ from python_template.api.workflows.products.discontinue_product.discontinue_prod
     DiscontinueProductRequest,
 )
 from python_template.common.business_errors import (
-    BusinessError,
+    NotFoundError,
     ProductAlreadyDiscontinuedError,
 )
 from python_template.domain.entities import Product
@@ -31,7 +30,7 @@ class DiscontinueProductWorkflow:
         )
 
         if product is None:
-            raise BusinessError(status_code=HTTPStatus.NOT_FOUND)
+            raise NotFoundError
 
         if product.is_discontinued:
             self.logger.warning(
