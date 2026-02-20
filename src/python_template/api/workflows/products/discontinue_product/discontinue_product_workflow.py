@@ -1,7 +1,7 @@
 from logging import Logger
 
-from sqlalchemy.ext.asyncio import AsyncSession
 from sqlmodel import select
+from sqlmodel.ext.asyncio.session import AsyncSession
 
 from python_template.api.workflows.products.discontinue_product.discontinue_product_request import (
     DiscontinueProductRequest,

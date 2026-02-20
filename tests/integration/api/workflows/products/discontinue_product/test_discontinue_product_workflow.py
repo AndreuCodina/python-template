@@ -1,5 +1,5 @@
 import pytest
-from sqlalchemy.ext.asyncio import AsyncSession
+from sqlmodel.ext.asyncio.session import AsyncSession
 from wirio.service_provider import ServiceProvider
 
 from python_template.api.workflows.products.discontinue_product.discontinue_product_request import (

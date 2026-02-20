@@ -1,4 +1,4 @@
-from sqlalchemy.ext.asyncio import AsyncSession
+from sqlmodel.ext.asyncio.session import AsyncSession
 
 from python_template.api.services.email_service import EmailService
 from python_template.api.workflows.products.publish_product.publish_product_request import (
