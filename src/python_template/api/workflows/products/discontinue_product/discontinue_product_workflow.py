@@ -21,12 +21,12 @@ class DiscontinueProductWorkflow:
     async def execute(self, request: DiscontinueProductRequest) -> None:
         product = (
             (
-                await self.sql_session.execute(
+                await self.sql_session.exec(
                     select(Product).where(Product.id == request.id)
                 )
             )
             .unique()
-            .scalar_one_or_none()
+            .one_or_none()
         )
 
         if product is None:
