@@ -19,6 +19,7 @@ app = FastAPI()
 app.include_router(product_router)
 
 services = ServiceCollection()
+services.configure_fastapi(app)
 application_settings = ApplicationSettings()  # ty:ignore[missing-argument]
 services.add_singleton(ApplicationSettings, application_settings)
 add_logging(services, application_settings.logging_level)
@@ -27,4 +28,3 @@ services.add_sqlmodel(application_settings.postgresql_connection_string)
 services.add_transient(EmailService)
 services.add_transient(PublishProductWorkflow)
 services.add_transient(DiscontinueProductWorkflow)
-services.configure_fastapi(app)
