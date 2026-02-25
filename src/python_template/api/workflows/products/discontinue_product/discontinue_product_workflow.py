@@ -3,12 +3,12 @@ from logging import Logger
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
-from python_template.api.workflows.products.discontinue_product.discontinue_product_request import (
-    DiscontinueProductRequest,
-)
-from python_template.common.business_errors import (
+from python_template.api.business_errors import (
     NotFoundError,
     ProductAlreadyDiscontinuedError,
+)
+from python_template.api.workflows.products.discontinue_product.discontinue_product_request import (
+    DiscontinueProductRequest,
 )
 from python_template.domain.entities import Product
 

@@ -5,7 +5,7 @@ from azure.identity import DefaultAzureCredential
 from azure.monitor.opentelemetry import configure_azure_monitor
 from wirio.service_collection import ServiceCollection
 
-from python_template.common.application_environment import ApplicationEnvironment
+from python_template.api.application_environment import ApplicationEnvironment
 
 
 def add_logging(services: ServiceCollection, logging_level: str) -> None:
