@@ -21,7 +21,6 @@ app.include_router(product_router)
 services = ServiceCollection()
 services.configure_fastapi(app)
 application_settings = ApplicationSettings()  # ty:ignore[missing-argument]
-services.add_singleton(ApplicationSettings, application_settings)
 add_logging(services, application_settings.logging_level)
 add_azure_monitor(application_settings.application_insights_connection_string)
 services.add_sqlmodel(application_settings.postgresql_connection_string)
