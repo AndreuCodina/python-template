@@ -1949,12 +1949,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/00/4b/ccc026168948fec4f7555b9164c724cf4125eac006e176541483d2c959be/pydantic_settings-2.13.1-py3-none-any.whl", hash = "sha256:d56fd801823dbeae7f0975e1f8c8e25c258eb75d278ea7abb5d9cebb01b56237", size = 58929, upload-time = "2026-02-19T13:45:06.034Z" },
 ]
 
-[package.optional-dependencies]
-azure-key-vault = [
-    { name = "azure-identity" },
-    { name = "azure-keyvault-secrets" },
-]
-
 [[package]]
 name = "pygments"
 version = "2.19.2"
@@ -2081,8 +2075,7 @@ dependencies = [
     { name = "azure-monitor-opentelemetry" },
     { name = "fastapi", extra = ["standard-no-fastapi-cloud-cli"] },
     { name = "pydantic" },
-    { name = "pydantic-settings", extra = ["azure-key-vault"] },
-    { name = "wirio", extra = ["fastapi", "sqlmodel"] },
+    { name = "wirio", extra = ["azure-key-vault", "fastapi", "sqlmodel"] },
 ]
 
 [package.dev-dependencies]
@@ -2103,8 +2096,7 @@ requires-dist = [
     { name = "azure-monitor-opentelemetry", specifier = ">=1.8.6" },
     { name = "fastapi", extras = ["standard-no-fastapi-cloud-cli"], specifier = ">=0.135.1" },
     { name = "pydantic", specifier = ">=2.12.5" },
-    { name = "pydantic-settings", extras = ["azure-key-vault"], specifier = ">=2.13.1" },
-    { name = "wirio", extras = ["fastapi", "sqlmodel"], specifier = ">=0.17.0" },
+    { name = "wirio", extras = ["azure-key-vault", "fastapi", "sqlmodel"], specifier = ">=0.17.0" },
 ]
 
 [package.metadata.requires-dev]
@@ -2764,6 +2756,11 @@ wheels = [
 ]
 
 [package.optional-dependencies]
+azure-key-vault = [
+    { name = "aiohttp" },
+    { name = "azure-identity" },
+    { name = "azure-keyvault-secrets" },
+]
 fastapi = [
     { name = "fastapi", extra = ["standard-no-fastapi-cloud-cli"] },
 ]

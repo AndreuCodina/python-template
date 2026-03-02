@@ -8,8 +8,7 @@ dependencies = [
     "azure-monitor-opentelemetry>=1.8.6",
     "fastapi[standard-no-fastapi-cloud-cli]>=0.135.1",
     "pydantic>=2.12.5",
-    "pydantic-settings[azure-key-vault]>=2.13.1",
-    "wirio[fastapi,sqlmodel]>=0.17.0",
+    "wirio[azure-key-vault,fastapi,sqlmodel]>=0.17.0",
 ]
 
 [dependency-groups]
