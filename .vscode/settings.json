@@ -11,7 +11,6 @@
     "[ipynb]": {
         "editor.defaultFormatter": "charliermarsh.ruff"
     },
-    "python.defaultInterpreterPath": ".venv/bin/python",
     "python.languageServer": "None",
     "python.testing.pytestEnabled": true,
     "notebook.formatOnSave.enabled": true,
