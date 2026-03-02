@@ -1,50 +1,8 @@
-from pathlib import Path
-
-from azure.identity import DefaultAzureCredential
-from pydantic_settings import (
-    AzureKeyVaultSettingsSource,
-    BaseSettings,
-    PydanticBaseSettingsSource,
-    SettingsConfigDict,
-)
-
-from python_template.api.application_environment import ApplicationEnvironment
-
-current_path = Path(__file__).parent.resolve()
+from pydantic import BaseModel
 
 
-class ApplicationSettings(BaseSettings):
+class ApplicationSettings(BaseModel):
     logging_level: str
+    key_vault_url: str
     application_insights_connection_string: str
     postgresql_connection_string: str
-
-    model_config = SettingsConfigDict(
-        extra="ignore",
-        env_nested_delimiter="__",
-        env_file=(
-            str(current_path / ".env"),
-            str(current_path / f".env.{ApplicationEnvironment.get_current()}"),
-        ),
-    )
-
-    @classmethod
-    def settings_customise_sources(
-        cls,
-        settings_cls: type[BaseSettings],
-        init_settings: PydanticBaseSettingsSource,
-        env_settings: PydanticBaseSettingsSource,
-        dotenv_settings: PydanticBaseSettingsSource,
-        file_secret_settings: PydanticBaseSettingsSource,
-    ) -> tuple[PydanticBaseSettingsSource, ...]:
-        settings = (init_settings, env_settings, dotenv_settings, file_secret_settings)
-
-        if ApplicationEnvironment.get_current() != ApplicationEnvironment.LOCAL:
-            azure_key_vault = AzureKeyVaultSettingsSource(
-                settings_cls,
-                dotenv_settings()["key_vault_url"],
-                DefaultAzureCredential(),
-                snake_case_conversion=True,
-            )
-            settings = (azure_key_vault, *settings)
-
-        return settings
