@@ -1,7 +1,7 @@
 from azure.identity import DefaultAzureCredential
 from azure.monitor.opentelemetry import configure_azure_monitor
 from fastapi import FastAPI
-from wirio.service_collection import ServiceCollection
+from wirio import ServiceCollection
 
 from python_template.api.application_settings import ApplicationSettings
 from python_template.api.service_collection_extensions import (

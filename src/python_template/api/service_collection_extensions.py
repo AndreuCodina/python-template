@@ -1,7 +1,7 @@
 import logging
 from logging import Logger
 
-from wirio.service_collection import ServiceCollection
+from wirio import ServiceCollection
 
 
 def add_logging(services: ServiceCollection, logging_level: str) -> None:

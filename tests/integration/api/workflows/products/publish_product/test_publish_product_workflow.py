@@ -1,5 +1,5 @@
 import pytest
-from wirio.service_provider import ServiceProvider
+from wirio import ServiceProvider
 
 from python_template.api.workflows.products.publish_product.publish_product_workflow import (
     PublishProductWorkflow,
