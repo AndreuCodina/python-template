@@ -22,9 +22,6 @@ app.include_router(product_router)
 services = ServiceCollection()
 services.configure_fastapi(app)
 
-if False:
-    services.configuration.add_user_secrets()
-
 if not services.environment.is_local():
     services.configuration.add_azure_key_vault(
         services.configuration["key_vault_url"]  # ty:ignore[invalid-argument-type]
