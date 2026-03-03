@@ -22,13 +22,18 @@ app.include_router(product_router)
 services = ServiceCollection()
 services.configure_fastapi(app)
 
-if not services.environment.is_local:
-    services.configuration.add_azure_key_vault(services.configuration["key_vault_url"])
+if False:
+    services.configuration.add_user_secrets()
+
+if not services.environment.is_local():
+    services.configuration.add_azure_key_vault(
+        services.configuration["key_vault_url"]  # ty:ignore[invalid-argument-type]
+    )
 
 application_settings = services.configuration[ApplicationSettings]
 add_logging(services, application_settings.logging_level)
 
-if not services.environment.is_local:
+if not services.environment.is_local():
     configure_azure_monitor(
         connection_string=application_settings.application_insights_connection_string,
         credential=DefaultAzureCredential(),
