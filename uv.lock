@@ -2086,7 +2086,6 @@ name = "python-template"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
-    { name = "aiohttp" },
     { name = "asyncpg" },
     { name = "azure-monitor-opentelemetry" },
     { name = "fastapi", extra = ["standard-no-fastapi-cloud-cli"] },
@@ -2107,7 +2106,6 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "aiohttp", specifier = ">=3.13.3" },
     { name = "asyncpg", specifier = ">=0.31.0" },
     { name = "azure-monitor-opentelemetry", specifier = ">=1.8.6" },
     { name = "fastapi", extras = ["standard-no-fastapi-cloud-cli"], specifier = ">=0.135.1" },
