@@ -1,0 +1,5 @@
+{
+    "logging_level": "ERROR",
+    "key_vault_url": "https://example-stg.vault.azure.net",
+    "application_insights_connection_string": "TBD"
+}
