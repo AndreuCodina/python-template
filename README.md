@@ -7,7 +7,7 @@ Project template for Python projects + uv + Vertical Slice Architecture
 **Initialize environment:**
 
 ```bash
-docker compose --file compose-dev.yaml up --detach
+docker compose up --detach
 ```
 
 **Run project:**
@@ -19,5 +19,5 @@ docker compose --file compose-dev.yaml up --detach
 **Destroy environment:**
 
 ```bash
-docker compose --file compose-dev.yaml down --volumes
+docker compose down --volumes
 ```
