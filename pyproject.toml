@@ -6,8 +6,8 @@ dependencies = [
     "asyncpg>=0.31.0",
     "azure-monitor-opentelemetry>=1.8.7",
     "fastapi[standard-no-fastapi-cloud-cli]>=0.136.1",
-    "pydantic>=2.13.3",
-    "wirio[azure-key-vault,fastapi,sqlmodel]>=0.21.1",
+    "pydantic>=2.13.4",
+    "wirio[azure-key-vault,fastapi,sqlmodel]>=0.22.0",
 ]
 
 [dependency-groups]
@@ -18,7 +18,7 @@ dev = [
     "pytest-cov>=7.1.0",
     "pytest-mock>=3.15.1",
     "ruff>=0.15.12",
-    "ty>=0.0.34",
+    "ty>=0.0.35",
 ]
 
 [build-system]

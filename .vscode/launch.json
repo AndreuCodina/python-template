@@ -8,6 +8,8 @@
       "module": "fastapi",
       "args": [
         "dev",
+        "--port",
+        "8080",
         "src/python_template/api/main.py"
       ],
       "justMyCode": false

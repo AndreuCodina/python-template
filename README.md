@@ -14,7 +14,7 @@ docker compose --file compose-dev.yaml up --detach
 
 > Visual Studio Code -> Run and Debug -> api
 
-(or `uv run -- fastapi dev src/python_template/api/main.py`)
+(or `uv run -- fastapi dev --port 8080 src/python_template/api/main.py`)
 
 **Destroy environment:**
 
