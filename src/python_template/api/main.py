@@ -1,12 +1,11 @@
+import logging
+
 from azure.identity import DefaultAzureCredential
 from azure.monitor.opentelemetry import configure_azure_monitor
 from fastapi import FastAPI
 from wirio import ServiceCollection
 
 from python_template.api.application_settings import ApplicationSettings
-from python_template.api.service_collection_extensions import (
-    add_logging,
-)
 from python_template.api.services.email_service import EmailService
 from python_template.api.workflows.products.discontinue_product.discontinue_product_workflow import (
     DiscontinueProductWorkflow,
@@ -28,7 +27,10 @@ if not services.environment.is_local():
     )
 
 application_settings = services.settings.get_model(ApplicationSettings)
-add_logging(services, application_settings.logging_level)
+logging.basicConfig(level=application_settings.logging_level)
+logging.getLogger("uvicorn").propagate = False
+logging.getLogger("uvicorn.error").propagate = False
+logging.getLogger("uvicorn.access").propagate = False
 
 if not services.environment.is_local():
     configure_azure_monitor(

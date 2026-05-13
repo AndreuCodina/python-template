@@ -1,4 +1,4 @@
-from logging import Logger
+import logging
 
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
@@ -14,9 +14,9 @@ from python_template.domain.entities import Product
 
 
 class DiscontinueProductWorkflow:
-    def __init__(self, sql_session: AsyncSession, logger: Logger) -> None:
+    def __init__(self, sql_session: AsyncSession) -> None:
         self.sql_session = sql_session
-        self.logger = logger
+        self.logger = logging.getLogger(__name__)
 
     async def execute(self, request: DiscontinueProductRequest) -> None:
         product = (
