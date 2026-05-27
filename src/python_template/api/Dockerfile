@@ -1,5 +1,5 @@
-# 0.11.5-python3.14-trixie
-FROM astral/uv@sha256:8459828f9db7128e6676cbe30aeb7a36aa2f5af3afc89276ecb2bf6cb8af12c0 AS builder
+# 0.11.15-python3.14-trixie-slim
+FROM astral/uv@sha256:1b882e1fa1834b0c26764ad6494e3151de499ed34dfa13826f9f395f5110f519 AS builder
 ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy UV_PYTHON_DOWNLOADS=0 UV_NO_DEV=1
 WORKDIR /app
 COPY pyproject.toml uv.lock ./
@@ -7,8 +7,8 @@ RUN uv sync --locked --no-install-workspace
 COPY src src
 RUN uv sync --locked
 
-# 3.14.4-slim-bookworm
-FROM python@sha256:336220baf4dc02a9da56db1720ce6d248aa7c62a0445af0ea1876ae76cc99bed AS final
+# python:3.14.5-slim-trixie
+FROM python@sha256:a7185a8e40af01bf891414a4df16ef10fc6000cee460a404a13da9029fe41604 AS final
 WORKDIR /app
 RUN adduser --system --group app
 COPY --from=builder --chown=app /app .
