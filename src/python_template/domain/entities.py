@@ -9,8 +9,8 @@ class Product(SQLModel, table=True):
     __tablename__ = "products"
 
     id: UUID = Field(default_factory=uuid.uuid7, primary_key=True)
-    name: str = Field(min_length=5, max_length=100)
+    name: str
     description: str | None = None
-    price: Decimal = Field(gt=0.0, decimal_places=2)
+    price: Decimal
     is_discontinued: bool
     discontinuation_reason: str | None = None

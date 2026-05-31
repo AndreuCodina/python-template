@@ -6,13 +6,10 @@ from fastapi import HTTPException
 class BusinessError(HTTPException):
     def __init__(
         self,
-        detail: str | None = None,
         status_code: int = HTTPStatus.UNPROCESSABLE_ENTITY,
+        detail: str | None = None,
     ) -> None:
-        super().__init__(
-            status_code=status_code,
-            detail=detail if detail is not None else self.__class__.__name__,
-        )
+        super().__init__(status_code=status_code, detail=detail)
 
 
 class NotFoundError(BusinessError):
@@ -21,4 +18,5 @@ class NotFoundError(BusinessError):
 
 
 class ProductAlreadyDiscontinuedError(BusinessError):
-    pass
+    def __init__(self) -> None:
+        super().__init__(detail="ProductAlreadyDiscontinued")
