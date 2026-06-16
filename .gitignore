@@ -1,4 +1,4 @@
-# settings.local.json
+# settings.local.yaml
 __pycache__/
 *.py[oc]
 build/
