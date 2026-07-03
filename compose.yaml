@@ -1,6 +1,6 @@
 services:
   postgresql:
-    image: postgres@sha256:fdd16e63f6c8ab50d422e4896b0d43d45fb72aa08bd33e4f5bda89bc4fbce98d # 18.1
+    image: postgres@sha256:4aabea78cf39b90e834caf3af7d602a18565f6fe2508705c8d01aa63245c2e20 # 18.1
     restart: always
     environment:
       POSTGRES_USER: postgres
