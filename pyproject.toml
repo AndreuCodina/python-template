@@ -27,6 +27,9 @@ dev = [
 requires = ["uv_build>=0.12.0,<0.13.0"]
 build-backend = "uv_build"
 
+[tool.uv]
+exclude-newer = "1 week"
+
 [tool.ty.terminal]
 error-on-warning = true
 

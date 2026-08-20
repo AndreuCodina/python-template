@@ -5,22 +5,22 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-      day: "monday"
+    cooldown:
+      default-days: 7
     target-branch: "main"
-    open-pull-requests-limit: 10
 
   - package-ecosystem: "docker-compose"
     directory: "/"
     schedule:
       interval: "weekly"
-      day: "monday"
+    cooldown:
+      default-days: 7
     target-branch: "main"
-    open-pull-requests-limit: 10
 
   - package-ecosystem: "docker"
-    directory: "/api/src/api/"
+    directory: "/src/python_template/api/"
     schedule:
       interval: "weekly"
-      day: "monday"
+    cooldown:
+      default-days: 7
     target-branch: "main"
-    open-pull-requests-limit: 10
