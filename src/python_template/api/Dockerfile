@@ -8,7 +8,7 @@ COPY src src
 RUN uv sync --locked
 
 # python:3.14-slim-trixie
-FROM python@sha256:a7fb1e634c4a578f9e0bd6327f11a3cde11b7a9395f48e24360c0988bcc5c2bc AS final
+FROM python@sha256:4fad23465a06cc5149a541fbec6f87e234a64dc0550f6bfdd2d290d8f03240df AS final
 WORKDIR /app
 RUN adduser --system --group app
 COPY --from=builder --chown=app /app .
